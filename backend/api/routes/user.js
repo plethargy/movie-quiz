@@ -5,6 +5,28 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 
 
+router.get('/', (req, res, next) => {
+    User
+    .find()
+    .then(data => {
+        let arr = data.sort((a, b) => {
+            return a.score < b.score;
+        })
+        .slice(0, 25);
+
+        res.status(200).json({
+            status: true,
+            result: arr
+        });
+    })
+    .catch(err => {
+        res.status(500).json({
+            status: false,
+            result: err
+        });
+    });
+});
+
 router.post('/create', (req, res, next) => {
 	User.find({
         name : req.body.name
