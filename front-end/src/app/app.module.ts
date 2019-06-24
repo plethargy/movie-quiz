@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { SummaryComponent } from './summary/summary.component';
 import { CategoryComponent } from './category/category.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 //************************************************************************************
 // BOOTSTRAP IMPORT
@@ -17,7 +18,8 @@ import { CategoryComponent } from './category/category.component';
     AppComponent,
     QuestionsComponent,
     SummaryComponent,
-    CategoryComponent
+    CategoryComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,
