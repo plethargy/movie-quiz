@@ -1,8 +1,10 @@
-var express = require('express');
+const express = require('express');
 
-var app = express();
+const app = express();
 
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
+
+const userRoutes = require('./api/routes/user');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -19,6 +21,8 @@ app.use((req, res, next) => {
     }
     next();
   });
+  
+  app.use('/user', userRoutes);
   
   app.use((req, res, next) => {
     var error = new Error("Resource not found");
