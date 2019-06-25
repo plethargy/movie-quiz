@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
-import { UserService } from '../../shared/user.service';
+import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -43,7 +43,10 @@ export class SignInComponent implements OnInit {
     this.userService.selectedUser = {
       fullName: '',
       email: '',
-      password: ''
+      password: '',
+      id: 0,
+      name: '',
+      score:0
     };
     form.resetForm();
     this.serverErrorMessages = '';
