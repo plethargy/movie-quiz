@@ -1,0 +1,29 @@
+<div>
+  <img src="/assets/img/logo.png" id="icon" alt="User Icon" />
+</div>
+
+<form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
+    <input type="text" name="fullName" #fullName="ngModel" [(ngModel)]="model.fullName" placeholder="Name"  required>
+    
+    <input type="password" name="password" #password="ngModel" [(ngModel)]="model.password" placeholder="Password" required minlength="8"
+      [ngClass]="{'invalid-textbox' :signInForm.submitted && !password.valid }">
+    <div *ngIf="signInForm.submitted && password.errors?.minlength">
+      <label class="validation-message">Invalid credentials</label>
+    </div>
+    <input type="submit" value="Sign In">
+  </form>
+  
+  <!--Confirm messge-->
+  <div class="success" *ngIf="showSucessMessage">
+    New User saved successfully
+  </div>
+  
+  <!-- Error message -->
+  <div class="alert" *ngIf="serverErrorMessages">
+    {{serverErrorMessages}}
+  </div>
+  
+
+<p>
+  sign-in works!
+</p>
