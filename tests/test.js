@@ -72,11 +72,12 @@ describe('/user/create succesfully creates new user', () => {
         .post(path)
         .send(
             {
-                name : "Emmet"
+                name : "Emmet",
+                password: "testpassword"
             }
         )
         .then((res) => {
-            chai.expect(res.body.status).to.be.eql(true); 
+            chai.expect(res).to.have.status(200); 
         }, (err) => {
             chai.expect(err.response).to.have.status(500);
         });
@@ -84,7 +85,7 @@ describe('/user/create succesfully creates new user', () => {
     
 });
 
-describe('/user/create succesfully retuns user already created', () => {
+describe('/user/create succesfully returns user already created', () => {
     const path = '/user/create';
 
   
@@ -94,7 +95,8 @@ describe('/user/create succesfully retuns user already created', () => {
         .post(path)
         .send(
             {
-                name : "Emmet"
+                name : "Emmet",
+                password: "testpassword"
             }
         )
         .then((res) => {
@@ -122,6 +124,98 @@ describe('/user/update successfully updates score', () => {
         )
         .then((res) => {
             chai.expect(res.body.status).to.be.equal(true); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/user/update successfully does not update score', () => {
+    const path = '/user/update';
+
+  
+    it('score not updated', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send(
+            {
+                name : "Emmet",
+                score : 5
+            }
+        )
+        .then((res) => {
+            chai.expect(res.body.result).to.be.equal("User already has a higher score."); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/user/login successfully authenticates user', () => {
+    const path = '/user/login';
+
+  
+    it('user authenticated', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send(
+            {
+                name : "Emmet",
+                password : "testpassword"
+            }
+        )
+        .then((res) => {
+            chai.expect(res.body.status).to.be.equal(true); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/user/login successfully shows user as not authenticated', () => {
+    const path = '/user/login';
+
+  
+    it('user invalid', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send(
+            {
+                name : "Emmet",
+                password : "testpassword123"
+            }
+        )
+        .then((res) => {
+            chai.expect(res.body.result).to.be.equal("User not authenticated."); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/user/login successfully invalidates if user does not exist', () => {
+    const path = '/user/login';
+
+  
+    it('user does not exist', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send(
+            {
+                name : "Emmethdoesntexist",
+                password : "testpassword123"
+            }
+        )
+        .then((res) => {
+            chai.expect(res.body.result).to.be.equal("User does not exist."); 
         }, (err) => {
             chai.expect(err.response).to.have.status(500);
         });
