@@ -9,6 +9,8 @@ import { CategoryComponent } from './category/category.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import {UserService} from './services/user.service';
 
+import { HttpClientModule }    from '@angular/common/http';
+
 //************************************************************************************
 // BOOTSTRAP IMPORT
 //************************************************************************************
@@ -24,7 +26,8 @@ import {UserService} from './services/user.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
     //NgbModule
   ],
   providers: [UserService],
