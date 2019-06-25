@@ -10,7 +10,29 @@ router.get('/', (req, res, next) => {
     .find()
     .then(data => {
         let arr = data.sort((a, b) => {
-            return a.score < b.score;
+            return a.score < b.score; //sort in descending order
+        })
+        .slice(0, 25);
+
+        res.status(200).json({
+            status: true,
+            result: arr
+        });
+    })
+    .catch(err => {
+        res.status(500).json({
+            status: false,
+            result: err
+        });
+    });
+});
+
+router.post('/', (req, res, next) => {
+    User
+    .find()
+    .then(data => {
+        let arr = data.sort((a, b) => {
+            return a.score < b.score; //sort in descending order
         })
         .slice(0, 25);
 
@@ -36,7 +58,7 @@ router.post('/create', (req, res, next) => {
         if (result.length > 0)
         {
             res.status(400).json({
-                status: false,
+                status: true,
                 result: "User already exists."
             });
         }
@@ -80,12 +102,35 @@ router.post('/create', (req, res, next) => {
 router.post('/update', (req, res, next) => {
     const addition = req.body.score;
 
-    User.findOneAndUpdate({ name : req.body.name}, { score : addition}, { new : true, runValidators : true})
-    .then(reslt => {
-        res.status(200).json({
-            status: true,
-            result : reslt
-        });
+    User.find({
+        name : req.body.name
+    })
+    .exec()
+    .then(result => {
+        if (result[0].score < addition)
+        {
+            User.findOneAndUpdate({ name : req.body.name}, { score : addition}, { new : true, runValidators : true})
+            .then(reslt => {
+                res.status(200).json({
+                    status: true,
+                    result : reslt
+                });
+            })
+            .catch(err => {
+                res.status(500).json({
+                    status: false,
+                    result: err
+                });
+            });
+        }
+        else
+        {
+            res.status(200).json({
+                status: true,
+                result: "User already has a higher score."
+            });
+        }
+        
     })
     .catch(err => {
         res.status(500).json({
@@ -93,6 +138,8 @@ router.post('/update', (req, res, next) => {
             result: err
         });
     });
+
+    
 });
 
 module.exports = router;
