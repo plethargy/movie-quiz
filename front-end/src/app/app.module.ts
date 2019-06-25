@@ -21,15 +21,15 @@ import { HttpClientModule }    from '@angular/common/http';
     QuestionsComponent,
     SummaryComponent,
     CategoryComponent,
-    LeaderboardComponent,
-    HttpClientModule,
-    FormsModule
+    LeaderboardComponent
+    
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

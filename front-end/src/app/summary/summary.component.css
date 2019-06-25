@@ -106,3 +106,12 @@
   color: #fff;
   background-color: #5bc0de;
 }
+
+.summary-header {
+  font-size: 200%;
+}
+
+.summary-name {
+  font-size: 150%;
+  font-weight: bold;
+}
