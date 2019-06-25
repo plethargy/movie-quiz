@@ -1,5 +1,8 @@
 export class User{
   id:number;
   name:string;
-  score:number;
+  score: number;
+  fullName: string;
+  email: string;
+  password: string;
 }

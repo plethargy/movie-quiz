@@ -1,6 +1,13 @@
-<div><h1>Leaderboard</h1></div>
-
-<table>
+<div class="col-md-4 text-center"><h1>Leader Board</h1></div>
+<br />
+<br />
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Score</th>
+    </tr>
+  </thead>
   <tr *ngFor="let u of users">
     <td>{{u.name}}</td>
     <td>{{u.score}}</td>
