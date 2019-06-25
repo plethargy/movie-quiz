@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/user');
+const bcrypt = require('bcryptjs');
 
 
 router.get('/', (req, res, next) => {
@@ -49,13 +50,46 @@ router.post('/', (req, res, next) => {
     });
 });
 
+router.post('/login', (req, res, next) => {
+    User.find({
+        name : req.body.name
+    })
+    .exec()
+    .then(data => {
+        if (data.length > 0)
+        {
+            if (bcrypt.compareSync(req.body.password, data[0].password))
+            {
+                res.status(200).json({
+                    status: true,
+                    result: data[0]
+                });
+            }
+            else
+            {
+                res.status(200).json({
+                    status: false,
+                    result: "User not authenticated."
+                });
+            }
+        }
+        else
+        {
+            res.status(200).json({
+                status: false,
+                result: "User does not exist."
+            });
+        }
+    });
+});
+
 router.post('/create', (req, res, next) => {
 	User.find({
         name : req.body.name
     })
     .exec()
-    .then(result => {
-        if (result.length > 0)
+    .then(data => {
+        if (data.length > 0)
         {
             res.status(400).json({
                 status: true,
@@ -64,9 +98,12 @@ router.post('/create', (req, res, next) => {
         }
         else
         {
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(req.body.password, salt);
             const user = new User({
                 _id: new mongoose.Types.ObjectId(),
                 name : req.body.name,
+                password: hash,
                 score : 0
             });
         
@@ -103,11 +140,11 @@ router.post('/update', (req, res, next) => {
     const addition = req.body.score;
 
     User.find({
-        name : req.body.name
+        name : req.body.name //finds user
     })
     .exec()
     .then(result => {
-        if (result[0].score < addition)
+        if (result[0].score < addition) //checking if score needs to be updated
         {
             User.findOneAndUpdate({ name : req.body.name}, { score : addition}, { new : true, runValidators : true})
             .then(reslt => {
