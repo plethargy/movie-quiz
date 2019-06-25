@@ -91,8 +91,8 @@ router.post('/create', (req, res, next) => {
     .then(data => {
         if (data.length > 0)
         {
-            res.status(400).json({
-                status: true,
+            res.status(200).json({
+                status: false,
                 result: "User already exists."
             });
         }
