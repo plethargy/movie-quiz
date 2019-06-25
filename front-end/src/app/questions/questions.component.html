@@ -1,13 +1,60 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-4">      
-    </div>
-    <div class="col-sm-4">
-      <h1>
-        QUESTIONS
-      </h1>
-      <div class="col-sm-4">
+    <div class="col-sm-6">
+
+      <div class="mt-5">
+        <h1>
+          Questions
+        </h1>
+
+        <div class="container">
+          <div class="row">
+            <br />
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <pre>
+                    {{question}}       
+                </pre>
+              </div>
+              <!-- ANSWERS -->
+              <div class="panel-footer">
+                <div class="row">
+                  <div class="funkyradio">
+
+                    <div class="funkyradio-danger">
+                      <input type="radio" name="radio" id="radio4" />
+                      <label for="radio4">{{Choice1}} </label>
+                    </div>
+                    <div class="funkyradio-warning">
+                      <input type="radio" name="radio" id="radio5" />
+                      <label for="radio5">{{Choice2}} </label>
+                    </div>
+                    <div class="funkyradio-info">
+                      <input type="radio" name="radio" id="radio6" />
+                      <label for="radio6">{{Choice3}} </label>
+                    </div>
+
+                    <div class="funkyradio-info mt-5">
+                      <button (click)="nextQuestion()" class="btn btn-primary"> Submit </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+    </div>
+    <div class="col-sm-6">
+
+      <div class="timer mt-5">
+        <button (click)='startTimer()'>Start Timer</button>
+        <button (click)='pauseTimer()'>Pause</button>
+        <p>{{timeSeconds}}</p>
+
+      </div>
+
     </div>
   </div>
 </div>
