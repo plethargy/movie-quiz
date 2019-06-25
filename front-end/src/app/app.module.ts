@@ -21,7 +21,9 @@ import { HttpClientModule }    from '@angular/common/http';
     QuestionsComponent,
     SummaryComponent,
     CategoryComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    HttpClientModule,
+    FormsModule
 
   ],
   imports: [
