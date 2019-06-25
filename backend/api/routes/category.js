@@ -1,36 +1,24 @@
 'use strict'
 const express = require('express')
 const router = express.Router()
-const mongoose = require('mongoose')
 
 const Category = require('../models/category')
 
 router.get('/', (req, res, next) => {
+  // Return categories from the database
   Category.find()
-    .then(results => {
-      res.send(results)
+    .then(data => {
+      res.status(200).json({
+        status: true,
+        results: data
+      })
     })
+  // Was there an error?
     .catch(err => {
-      res.send(err)
-    })
-})
-
-// Mock creation of a question
-
-router.get('/create', (req, res, next) => {
-  const c = new Category({
-    _id: new mongoose.Types.ObjectId(),
-    id: 2,
-    category: 'History'
-  })
-  c.save()
-    .then(results => {
-      // console.log(results)
-      res.send(results)
-    })
-    .catch(err => {
-      // console.log(err)
-      res.send(err)
+      res.status(500).json({
+        status: false,
+        results: err
+      })
     })
 })
 
