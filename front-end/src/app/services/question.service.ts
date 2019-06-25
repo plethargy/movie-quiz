@@ -19,16 +19,7 @@ export class QuestionService {
     // FUNCTIONS
     //************************************************************************************
     getQuestion(id: string) {
-        return this.http.get<{
-            _id: string;
-            question: string;
-            choice1: {
-
-            };
-
-        }>("htttps:4000/q");
-
-
+        return this.http.get<{}>("http://localhost:5000/questions/" + id);
     }
 
     getScore() { }

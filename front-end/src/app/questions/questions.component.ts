@@ -4,6 +4,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from "@angular/router";
 
 //************************************************************************************
 // Models
@@ -21,13 +22,17 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   //************************************************************************************
   // DECLARTIONS AND VARIABLES
   //************************************************************************************
-  questions: number = 1;
-  question: string;
-  Choice1: string;
-  Choice2: string;
-  Choice3: string;
+  questions: number = 0;
   questionSingle: QuestionData;
-  private postId: string;
+  categoryID: string;
+
+  // QUESION PLACE
+  username: string = "bob"
+  question: string;
+  choice1: [];
+  choice2: [];
+  choice3: [];
+  
 
   // TIMER
   timeSeconds: number = 10;
@@ -36,12 +41,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   totalScore: number = 0;
   interval;
 
-  constructor(public QuestionService: QuestionService, private router: Router) {
+  constructor(public route: ActivatedRoute, public QuestionService: QuestionService, private router: Router) {
 
   }
   ngOnInit() {
-    this.QuestionService.getQuestion(this.postId);
+  
     this.startTimer();
+    this.nextQuestion();
   }
 
   ngOnDestroy() {
@@ -53,11 +59,16 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   //************************************************************************************
   nextQuestion(): void {
     this.questions++;
-
-
-
-
-
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      this.QuestionService.getQuestion("1").subscribe(questionData => {
+        this.question = questionData.results[this.questions].question;
+        this.choice1 = questionData.results[this.questions].choice1[0];
+        this.choice2 = questionData.results[this.questions].choice2[0];
+        this.choice3 = questionData.results[this.questions].choice3[0];
+      });
+    });
+    
+   
     if (this.questions >= 7) {
       this.router.navigate(['/summary']);
     }
