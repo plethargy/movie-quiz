@@ -1,15 +1,28 @@
-<div class="col-md-4 text-center"><h1>Leader Board</h1></div>
+<div class="text-center"><h1>Leader Board</h1></div>
 <br />
 <br />
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Score</th>
-    </tr>
-  </thead>
-  <tr *ngFor="let u of users">
-    <td>{{u.name}}</td>
-    <td>{{u.score}}</td>
-  </tr>
-</table>
+<div class="row">
+  <div class="col-0 col-md-3"></div>
+  <div class="col col-md-6">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Score</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let u of users">
+        <td>{{u.name}}</td>
+        <td>{{u.score}}</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-0 col-md-3"></div>
+  <div class="col col-md-6 text-center">
+    <button class="btn btn-primary btn-lg btn-block" (click)="playAgain(6)"><i class="fa fa-refresh"></i>Play Again</button>
+  </div>
+</div>
