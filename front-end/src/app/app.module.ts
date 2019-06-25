@@ -26,7 +26,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
     AppRoutingModule
     //NgbModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
