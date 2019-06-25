@@ -18,6 +18,8 @@ export interface QuestionData {
 
     category: string;
 
+    picture: string;
+
     score: number;
 
 } 

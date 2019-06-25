@@ -15,11 +15,19 @@ export class QuestionService {
 
     constructor(private http: HttpClient) { }
 
-
     //************************************************************************************
     // FUNCTIONS
     //************************************************************************************
-    getQuestion() {
+    getQuestion(id: string) {
+        return this.http.get<{
+            _id: string;
+            question: string;
+            choice1: {
+
+            };
+
+        }>("htttps:4000/q");
+
 
     }
 
