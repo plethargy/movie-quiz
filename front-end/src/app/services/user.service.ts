@@ -11,15 +11,6 @@ import { User } from '../models/user.model';
 export class UserService {
 
 
-  selectedUser: User = {
-    fullName: '',
-    email: '',
-    password: '',
-    id : 0,
-    name: '',
-    score: 0
-  };
-
   user: User[] = null;
   usersUrl = 'http://localhost:5000/user/';
 
@@ -27,9 +18,9 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  postUser(user: User){
-    return this.http.post(environment.apiBaseUrl+'/register',user,this.noAuthHeader)
-  }
+  // postUser(user: User){
+  //   return this.http.post(environment.apiBaseUrl+'/register',user,this.noAuthHeader)
+  // }
 
   
   /*addPost(post: Post){
@@ -38,12 +29,12 @@ export class UserService {
         description : post.description
     })
 }*/
-  login(authCredentials) {
-    return this.http.post(environment.apiBaseUrl + '/authenticate', authCredentials,this.noAuthHeader);
-  }
-  getUserProfile() {
-    return this.http.get(environment.apiBaseUrl + '/category');
-  }
+  // login(authCredentials) {
+  //   return this.http.post(environment.apiBaseUrl + '/authenticate', authCredentials,this.noAuthHeader);
+  // }
+  // getUserProfile() {
+  //   return this.http.get(environment.apiBaseUrl + '/category');
+  // }
   setToken(token: string) {
     localStorage.setItem('token', token);
   }
