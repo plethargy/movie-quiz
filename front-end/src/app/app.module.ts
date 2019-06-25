@@ -9,8 +9,6 @@ import { CategoryComponent } from './category/category.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import {UserService} from './services/user.service';
 
-import { HttpClientModule }    from '@angular/common/http';
-
 //************************************************************************************
 // CUSTOM IMPORTS
 //************************************************************************************
