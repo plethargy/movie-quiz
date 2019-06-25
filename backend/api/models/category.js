@@ -1,3 +1,4 @@
+'use strict'
 const mongoose = require('mongoose')
 
 // Create Category Schema for MongoDB
