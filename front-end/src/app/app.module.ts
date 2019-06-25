@@ -8,12 +8,6 @@ import { SummaryComponent } from './summary/summary.component';
 import { CategoryComponent } from './category/category.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { UserService } from './services/user.service';
-
-//************************************************************************************
-// CUSTOM IMPORTS
-//************************************************************************************
-//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -28,7 +22,6 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
-    //NgbModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LeaderboardComponent } from './leaderboard.component';
+import { UserService } from '../services/user.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('LeaderboardComponent', () => {
   let component: LeaderboardComponent;
@@ -8,6 +11,10 @@ describe('LeaderboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule, HttpClientModule],
+      providers: [
+        UserService
+      ],
       declarations: [ LeaderboardComponent ]
     })
     .compileComponents();
