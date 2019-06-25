@@ -11,13 +11,6 @@ import {UserService} from './services/user.service';
 
 import { HttpClientModule }    from '@angular/common/http';
 
-//************************************************************************************
-// CUSTOM IMPORTS
-//************************************************************************************
-//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { HttpClientModule } from '@angular/common/http';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +23,6 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
-    //NgbModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
