@@ -8,7 +8,8 @@ const questionSchema = mongoose.Schema({
   choice1: Array,
   choice2: Array,
   choice3: Array,
-  category: Number
+  category: Number,
+  image: String
 })
 
 module.exports = mongoose.model('question', questionSchema)

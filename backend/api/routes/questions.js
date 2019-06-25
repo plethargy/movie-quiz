@@ -31,7 +31,8 @@ router.post('/create', (req, res, next) => {
     choice1: req.body.choice1,
     choice2: req.body.choice2,
     choice3: req.body.choice3,
-    category: req.body.category
+    category: req.body.category,
+    image: req.body.image
   })
 
   question.save()
