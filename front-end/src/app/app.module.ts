@@ -8,9 +8,11 @@ import { SummaryComponent } from './summary/summary.component';
 import { CategoryComponent } from './category/category.component';
 
 //************************************************************************************
-// BOOTSTRAP IMPORT
+// CUSTOM IMPORTS
 //************************************************************************************
 //import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { CategoryComponent } from './category/category.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
     //NgbModule
   ],
   providers: [],
