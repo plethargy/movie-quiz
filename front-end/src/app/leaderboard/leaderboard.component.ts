@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {UserService} from '../services/user.service';
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeaderboardComponent implements OnInit {
   //user: User = {}; 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+  }
+
+  getLeaderBoard(){
+  this.userService.getLeaders();
   }
 
 }
