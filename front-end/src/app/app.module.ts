@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +11,7 @@ import { CategoryComponent } from './category/category.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import {UserService} from './services/user.service';
 import { HttpClientModule }    from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,14 +22,15 @@ import { HttpClientModule }    from '@angular/common/http';
     SummaryComponent,
     CategoryComponent,
     LeaderboardComponent,
-    HttpClientModule,
-    FormsModule
-
+    
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     HttpClientModule
+
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
