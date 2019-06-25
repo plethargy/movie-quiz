@@ -102,12 +102,35 @@ router.post('/create', (req, res, next) => {
 router.post('/update', (req, res, next) => {
     const addition = req.body.score;
 
-    User.findOneAndUpdate({ name : req.body.name}, { score : addition}, { new : true, runValidators : true})
-    .then(reslt => {
-        res.status(200).json({
-            status: true,
-            result : reslt
-        });
+    User.find({
+        name : req.body.name
+    })
+    .exec()
+    .then(result => {
+        if (result[0].score < addition)
+        {
+            User.findOneAndUpdate({ name : req.body.name}, { score : addition}, { new : true, runValidators : true})
+            .then(reslt => {
+                res.status(200).json({
+                    status: true,
+                    result : reslt
+                });
+            })
+            .catch(err => {
+                res.status(500).json({
+                    status: false,
+                    result: err
+                });
+            });
+        }
+        else
+        {
+            res.status(200).json({
+                status: true,
+                result: "User already has a higher score."
+            });
+        }
+        
     })
     .catch(err => {
         res.status(500).json({
@@ -115,6 +138,8 @@ router.post('/update', (req, res, next) => {
             result: err
         });
     });
+
+    
 });
 
 module.exports = router;
