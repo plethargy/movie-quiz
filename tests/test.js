@@ -223,3 +223,88 @@ describe('/user/login successfully invalidates if user does not exist', () => {
     
 });
 
+
+describe('/category successfully returns categories', () => {
+    const path = '/category';
+
+  
+    it('category list retrieved', () => {
+        return chai
+        .request(host)
+        .get(path)
+        .send()
+        .then((res) => {
+            chai.expect(res).to.have.status(200); 
+            chai.expect(res.body.results).to.be.array(); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/category fails as expected', () => {
+    const path = '/category';
+
+  
+    it('category failed on POST', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send()
+        .then((res) => {
+            chai.expect(res).to.have.status(404); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/questions/create works as expected', () => {
+    const path = '/questions/create';
+
+  
+    it('question created', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send({
+            question : "test question?",
+            choice1 : ["test1", false],
+            choice2 : ["test2", false],
+            choice3 : ["test3", true],
+            category : 100,
+            image : "test.png"
+        })
+        .then((res) => {
+            chai.expect(res).to.have.status(200);
+            chai.expect(res.body.results.question).to.be.equal("test question?"); 
+            chai.expect(res.body.results.category).to.be.equal(100);
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/questions/delete works as expected', () => {
+    const path = '/questions/delete';
+
+  
+    it('question deleted', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send({
+            category : 100
+        })
+        .then((res) => {
+            chai.expect(res).to.have.status(200);
+            chai.expect(res.body.status).to.be.equal(true); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
