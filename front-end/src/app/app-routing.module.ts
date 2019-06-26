@@ -6,6 +6,7 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { CategoryComponent } from './category/category.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { SummaryComponent } from './summary/summary.component';
 
 const routes: Routes = [
   //{ path: '', redirectTo: '/category', pathMatch: 'full' },

@@ -15,12 +15,11 @@ export class QuestionService {
 
     constructor(private http: HttpClient) { }
 
-
     //************************************************************************************
     // FUNCTIONS
     //************************************************************************************
-    getQuestion() {
-
+    getQuestion(id: string) {
+        return this.http.get<{}>("http://localhost:5000/questions/" + id);
     }
 
     getScore() { }

@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 
 const userRoutes = require('./api/routes/user')
 const categoryRoutes = require('./api/routes/category')
+const questionsRoutes = require('./api/routes/questions')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 
 app.use('/user', userRoutes)
 app.use('/category', categoryRoutes)
+app.use('/questions', questionsRoutes)
 
 app.use((req, res, next) => {
   var error = new Error('Resource not found')

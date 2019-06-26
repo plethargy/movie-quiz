@@ -11,44 +11,45 @@ export class SignInComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
 
-  resultTemp : any;
-
   model = {
-    name:'',
+    email: '',
     password: ''
   };
+  emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   serverErrorMessages: string;
-  showErrorMessage: boolean;
+  showSucessMessage: boolean;
   ngOnInit() {
-    //if (this.userService.isLoggedIn())
-      //this.router.navigateByUrl('/category');
+    if (this.userService.isLoggedIn())
+      this.router.navigateByUrl('/userprofile');
   }
 
-  onSubmit(form: NgForm) {
-    this.userService.login(form.value).subscribe(
-      res => {
-        this.resultTemp = res;
-        this.showErrorMessage = true;
-        setTimeout(() => this.showErrorMessage = false, 6000);
-        this.resetForm(form);
-        if (this.resultTemp.status == true)
-          this.router.navigateByUrl('/category');
-      },
-      err => {
-        this.serverErrorMessages = 'Servers are down sorry for the inconvenience';
-      }
-    );
-  }
+  // onSubmit(form: NgForm) {
+  //   this.userService.login(form.value).subscribe(
+  //     res => {
+  //       this.userService.setToken(res['token']);
+  //       this.showSucessMessage = true;
+  //       setTimeout(() => this.showSucessMessage = false, 6000);
+  //       this.resetForm(form);
+  //       this.router.navigateByUrl('/category');
+  //     },
+  //     err => {
+  //       this.serverErrorMessages = 'Servers are down sorry for the inconvenience';
+  //     }
+  //   );
+  // }
 
 
-  resetForm(form: NgForm) {
-    this.userService.selectedUser = {
-      name: '',
-      password: '',
-      score: 0
-    };
-    form.resetForm();
-    this.serverErrorMessages = '';
-  }
+  // resetForm(form: NgForm) {
+  //   this.userService.selectedUser = {
+  //     fullName: '',
+  //     email: '',
+  //     password: '',
+  //     id: 0,
+  //     name: '',
+  //     score:0
+  //   };
+  //   form.resetForm();
+  //   this.serverErrorMessages = '';
+  // }
 
 }

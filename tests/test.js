@@ -72,11 +72,12 @@ describe('/user/create succesfully creates new user', () => {
         .post(path)
         .send(
             {
-                name : "Emmet"
+                name : "Emmet",
+                password: "testpassword"
             }
         )
         .then((res) => {
-            chai.expect(res.body.status).to.be.eql(true); 
+            chai.expect(res).to.have.status(200); 
         }, (err) => {
             chai.expect(err.response).to.have.status(500);
         });
@@ -84,7 +85,7 @@ describe('/user/create succesfully creates new user', () => {
     
 });
 
-describe('/user/create succesfully retuns user already created', () => {
+describe('/user/create succesfully returns user already created', () => {
     const path = '/user/create';
 
   
@@ -94,7 +95,8 @@ describe('/user/create succesfully retuns user already created', () => {
         .post(path)
         .send(
             {
-                name : "Emmet"
+                name : "Emmet",
+                password: "testpassword"
             }
         )
         .then((res) => {
@@ -129,3 +131,180 @@ describe('/user/update successfully updates score', () => {
     
 });
 
+describe('/user/update successfully does not update score', () => {
+    const path = '/user/update';
+
+  
+    it('score not updated', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send(
+            {
+                name : "Emmet",
+                score : 5
+            }
+        )
+        .then((res) => {
+            chai.expect(res.body.result).to.be.equal("User already has a higher score."); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/user/login successfully authenticates user', () => {
+    const path = '/user/login';
+
+  
+    it('user authenticated', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send(
+            {
+                name : "Emmet",
+                password : "testpassword"
+            }
+        )
+        .then((res) => {
+            chai.expect(res.body.status).to.be.equal(true); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/user/login successfully shows user as not authenticated', () => {
+    const path = '/user/login';
+
+  
+    it('user invalid', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send(
+            {
+                name : "Emmet",
+                password : "testpassword123"
+            }
+        )
+        .then((res) => {
+            chai.expect(res.body.result).to.be.equal("User not authenticated."); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/user/login successfully invalidates if user does not exist', () => {
+    const path = '/user/login';
+
+  
+    it('user does not exist', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send(
+            {
+                name : "Emmethdoesntexist",
+                password : "testpassword123"
+            }
+        )
+        .then((res) => {
+            chai.expect(res.body.result).to.be.equal("User does not exist."); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+
+describe('/category successfully returns categories', () => {
+    const path = '/category';
+
+  
+    it('category list retrieved', () => {
+        return chai
+        .request(host)
+        .get(path)
+        .send()
+        .then((res) => {
+            chai.expect(res).to.have.status(200); 
+            chai.expect(res.body.results).to.be.array(); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/category fails as expected', () => {
+    const path = '/category';
+
+  
+    it('category failed on POST', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send()
+        .then((res) => {
+            chai.expect(res).to.have.status(404); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/questions/create works as expected', () => {
+    const path = '/questions/create';
+
+  
+    it('question created', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send({
+            question : "test question?",
+            choice1 : ["test1", false],
+            choice2 : ["test2", false],
+            choice3 : ["test3", true],
+            category : 100,
+            image : "test.png"
+        })
+        .then((res) => {
+            chai.expect(res).to.have.status(200);
+            chai.expect(res.body.results.question).to.be.equal("test question?"); 
+            chai.expect(res.body.results.category).to.be.equal(100);
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/questions/delete works as expected', () => {
+    const path = '/questions/delete';
+
+  
+    it('question deleted', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send({
+            category : 100
+        })
+        .then((res) => {
+            chai.expect(res).to.have.status(200);
+            chai.expect(res.body.status).to.be.equal(true); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
