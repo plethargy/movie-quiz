@@ -223,3 +223,41 @@ describe('/user/login successfully invalidates if user does not exist', () => {
     
 });
 
+
+describe('/category successfully returns categories', () => {
+    const path = '/category';
+
+  
+    it('category list retrieved', () => {
+        return chai
+        .request(host)
+        .get(path)
+        .send()
+        .then((res) => {
+            chai.expect(res).to.have.status(200); 
+            chai.expect(res.body.results).to.be.array(); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
+describe('/category fails as expected', () => {
+    const path = '/category';
+
+  
+    it('category failed on POST', () => {
+        return chai
+        .request(host)
+        .post(path)
+        .send()
+        .then((res) => {
+            chai.expect(res).to.have.status(404); 
+        }, (err) => {
+            chai.expect(err.response).to.have.status(500);
+        });
+    });
+    
+});
+
