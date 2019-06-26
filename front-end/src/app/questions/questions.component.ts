@@ -60,7 +60,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   //************************************************************************************
   nextQuestion(): void {
     this.questions++;
-    this.getQuestionData();
+    //this.getQuestionData();
 
     // this.route.paramMap.subscribe((paramMap: ParamMap) => {
     //   this.QuestionService.getQuestion("1").subscribe(questionData => {
