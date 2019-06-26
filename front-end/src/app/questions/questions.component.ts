@@ -103,7 +103,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       return;
     }
     this.result = form.controls["selection"].value;
-    this.getQuestionData();
+    this.getQuestionData(); 
 
     if (this.choice1 == this.result) {
       if (this.answer1 == true) {
