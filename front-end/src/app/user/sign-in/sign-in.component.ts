@@ -25,6 +25,8 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    console.log(form.value.name);
+    localStorage.setItem('username', form.value.name);
     this.userService.login(form.value).subscribe(
       res => {
         this.resultTemp = res;
