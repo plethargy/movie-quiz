@@ -16,7 +16,7 @@
             <br />
             <div class="panel panel-primary">
               <div class="panel-heading">
-
+                <img src="{{image}} ">
                 <pre>
                     {{question}}       
                 </pre>
@@ -28,16 +28,16 @@
 
                     <form #questionForm="ngForm" (ngSubmit)="onFormSubmit(questionForm)">
                       <div class="funkyradio-danger">
-                        <input type="radio" name="radio" id="radio1" value="radio1" />
-                        <label for="radio1">{{choice1}} </label>
+                        <input type="radio" id="radio1" name="selection" value="{{choice1}}" [(ngModel)]="result" />
+                        <label for="radio1"> {{choice1}} </label>
                       </div>
                       <div class="funkyradio-warning">
-                        <input type="radio" name="radio" id="radio2" value="radio2" />
-                        <label for="radio2">{{choice2}} </label>
+                        <input type="radio" id="radio2" name="selection" value="{{choice2}}" [(ngModel)]="result" />
+                        <label for="radio2"> {{choice2}} </label>
                       </div>
                       <div class="funkyradio-info">
-                        <input type="radio" name="radio" id="radio3" value="radio3" />
-                        <label for="radio3">{{choice3}} </label>
+                        <input type="radio" id="radio3" name="selection" value="{{choice3}}" [(ngModel)]="result" />
+                        <label for="radio3"> {{choice3}} </label>
                       </div>
 
                       <div class="funkyradio-info mt-5">

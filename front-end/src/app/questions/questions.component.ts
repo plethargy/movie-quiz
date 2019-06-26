@@ -23,7 +23,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   //************************************************************************************
   // DECLARTIONS AND VARIABLES
   //************************************************************************************
-  questions: number = 0;
+  questions: number = -1;
   questionSingle: QuestionData;
   categoryID: string;
 
@@ -33,11 +33,17 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   choice1: [];
   choice2: [];
   choice3: [];
+
+  answer1: boolean;
+  answer2: boolean;
+  answer3: boolean;
   answer: boolean;
+  image: string;
+
   results: any = [];
 
   // GETTING THE ANSWERS
-  public radio1: any;
+  public result: any;
 
   // TIMER
   timeSeconds: number = 10;
@@ -65,15 +71,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   nextQuestion(): void {
     this.questions++;
     this.getQuestionData();
-    // this.route.paramMap.subscribe((paramMap: ParamMap) => {
-    //   this.QuestionService.getQuestion("1").subscribe(questionData => {
-    //     this.question = questionData.results[this.questions].question;
-    //     this.choice1 = questionData.results[this.questions].choice1[0];
-    //     this.choice2 = questionData.results[this.questions].choice2[0];
-    //     this.choice3 = questionData.results[this.questions].choice3[0];
-    //   });
-    // });
-
 
     if (this.questions >= 7) {
       this.router.navigate(['/summary']);
@@ -89,21 +86,56 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.choice2 = this.results[this.questions].choice2[0];
         this.choice3 = this.results[this.questions].choice3[0];
 
-        if (this.results[this.questions].choice1[1] === true) {
-          this.answer = true;
-        } else if (this.results[this.questions].choice2[1] === true) {
-          this.answer = true;
-        } else if (this.results[this.questions].choice3[1] === true) {
-          this.answer = true;
-        }
+        this.answer1 = this.results[this.questions].choice1[1];
+        this.answer2 = this.results[this.questions].choice2[1];
+        this.answer3 = this.results[this.questions].choice3[1];
+
+        this.image = this.results[this.questions].image;
+
+        console.log(this.image);
 
       });
     });
   }
 
-  onFormSubmit(form:NgForm){
-    this.radio1 = form.controls["radio1"].value;
-    console.log(this.radio1);
+  onFormSubmit(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    this.result = form.controls["selection"].value;
+    this.getQuestionData();
+
+    if (this.choice1 == this.result) {
+      if (this.answer1 == true) {
+        this.scoreCounter();
+        this.scoreCounter();
+        console.log("right")
+      }
+      else {
+        this.scoreCounter();
+        console.log("wrong")
+      }
+    } else if (this.choice2 == this.result) {
+      if (this.answer2 == true) {
+        this.scoreCounter();
+        console.log("right")
+      }
+      else {
+        this.scoreCounter();
+        console.log("wrong")
+      }
+    } else if (this.choice3 == this.result) {
+      if (this.answer3 == true) {
+        this.scoreCounter();
+        console.log("right")
+      }
+      else {
+        this.scoreCounter();
+        console.log("wrong")
+      }
+    }
+
+    form.resetForm();
   }
 
   //************************************************************************************
@@ -135,5 +167,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     else {
       this.score = (this.timeMili * 1000);
     }
+    return this.score;
   }
 }
