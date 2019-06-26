@@ -1,23 +1,24 @@
 export interface QuestionData {
+    id: string
     question: string;
 
-    choice1: {
-        question: string,
-        answer: boolean
-    }
+    // choice1: {
+    //     question: string,
+    //     answer: boolean
+    // }
 
-    choice2: {
-        question: string,
-        answer: boolean
-    }
+    // choice2: {
+    //     question: string,
+    //     answer: boolean
+    // }
 
-    choice3: {
-        question: string,
-        answer: boolean
-    }
+    // choice3: {
+    //     question: string,
+    //     answer: boolean
+    // }
 
-    category: string;
+    // category: string;
 
-    picture: string;
+    // picture: string;
 
 } 
