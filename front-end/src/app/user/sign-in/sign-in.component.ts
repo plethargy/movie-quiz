@@ -23,33 +23,33 @@ export class SignInComponent implements OnInit {
       this.router.navigateByUrl('/userprofile');
   }
 
-  onSubmit(form: NgForm) {
-    this.userService.login(form.value).subscribe(
-      res => {
-        this.userService.setToken(res['token']);
-        this.showSucessMessage = true;
-        setTimeout(() => this.showSucessMessage = false, 6000);
-        this.resetForm(form);
-        this.router.navigateByUrl('/category');
-      },
-      err => {
-        this.serverErrorMessages = 'Servers are down sorry for the inconvenience';
-      }
-    );
-  }
+  // onSubmit(form: NgForm) {
+  //   this.userService.login(form.value).subscribe(
+  //     res => {
+  //       this.userService.setToken(res['token']);
+  //       this.showSucessMessage = true;
+  //       setTimeout(() => this.showSucessMessage = false, 6000);
+  //       this.resetForm(form);
+  //       this.router.navigateByUrl('/category');
+  //     },
+  //     err => {
+  //       this.serverErrorMessages = 'Servers are down sorry for the inconvenience';
+  //     }
+  //   );
+  // }
 
 
-  resetForm(form: NgForm) {
-    this.userService.selectedUser = {
-      fullName: '',
-      email: '',
-      password: '',
-      id: 0,
-      name: '',
-      score:0
-    };
-    form.resetForm();
-    this.serverErrorMessages = '';
-  }
+  // resetForm(form: NgForm) {
+  //   this.userService.selectedUser = {
+  //     fullName: '',
+  //     email: '',
+  //     password: '',
+  //     id: 0,
+  //     name: '',
+  //     score:0
+  //   };
+  //   form.resetForm();
+  //   this.serverErrorMessages = '';
+  // }
 
 }

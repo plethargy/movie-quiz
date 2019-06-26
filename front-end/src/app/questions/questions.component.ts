@@ -27,12 +27,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   categoryID: string;
 
   // QUESION PLACE
+  results: any[];
   username: string = "bob"
   question: string;
   choice1: [];
   choice2: [];
   choice3: [];
-  
+
 
   // TIMER
   timeSeconds: number = 10;
@@ -45,7 +46,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit() {
-  
+
     this.startTimer();
     this.nextQuestion();
   }
@@ -59,19 +60,44 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   //************************************************************************************
   nextQuestion(): void {
     this.questions++;
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      this.QuestionService.getQuestion("1").subscribe(questionData => {
-        this.question = questionData.results[this.questions].question;
-        this.choice1 = questionData.results[this.questions].choice1[0];
-        this.choice2 = questionData.results[this.questions].choice2[0];
-        this.choice3 = questionData.results[this.questions].choice3[0];
-      });
-    });
-    
-   
+    this.getQuestionData();
+
+    // this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    //   this.QuestionService.getQuestion("1").subscribe(questionData => {
+
+    //     this.results = questionData["results"];
+
+    //     this.question = this.results[this.questions].question;
+    //     this.choice1 = this.results[this.questions].choice1[0];
+    //     this.choice2 = this.results[this.questions].choice2[0];
+    //     this.choice3 = this.results[this.questions].choice3[0];
+    //     //  this.question = questionData.results[this.questions].question;
+    //     //  this.choice1 = questionData.results[this.questions].choice1[0];
+    //     //  this.choice2 = questionData.results[this.questions].choice2[0];
+    //     //  this.choice3 = questionData.results[this.questions].choice3[0];
+    //   });
+    // });
+
     if (this.questions >= 7) {
       this.router.navigate(['/summary']);
     }
+  }
+
+  correctQuestion(): void {
+
+  }
+
+  getQuestionData(answer: string) {
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      this.QuestionService.getQuestion("1").subscribe(questionData => {
+        this.results = questionData["results"];
+        this.question = this.results[this.questions].question;
+        this.choice1 = this.results[this.questions].choice1[0];
+        this.choice2 = this.results[this.questions].choice2[0];
+        this.choice3 = this.results[this.questions].choice3[0];
+       
+      });
+    });
   }
 
   //************************************************************************************
@@ -92,7 +118,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   scoreCounter() {
     clearInterval(this.interval);
     this.timeMili = (this.timeSeconds % 1) * 1000;
-    console.log(this.timeMili);
 
     if (this.timeSeconds > 7) {
       this.score = (this.timeMili * 1000) * 3;
