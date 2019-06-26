@@ -24,5 +24,5 @@ You should now be able to access the website by browsing to localhost:4200.
 In order to execute the unit tests, you will first need to install the required testing modules. To do this, browse to the movie-quiz/backend folder and run the following command: ``` npm install ```
 Once this is installed, you can run the tests by executing the following command: ``` npm test ```
 
-### Authors
+## Authors
 The Authors of this software are the Syntactic Sugar Derivco Winter School team. A full list of [contributors](https://github.com/plethargy/movie-quiz/graphs/contributors) can be seen by clicking the link.
