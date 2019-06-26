@@ -12,12 +12,14 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import {UserService} from './services/user.service';
 import { HttpClientModule }    from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { SignUpComponent } from './user/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     SignInComponent,
+    SignUpComponent,
     QuestionsComponent,
     SummaryComponent,
     CategoryComponent,

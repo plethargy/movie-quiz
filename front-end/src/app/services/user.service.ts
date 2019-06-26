@@ -11,30 +11,28 @@ import { User } from '../models/user.model';
 export class UserService {
 
 
-  user: User[] = null;
+  selectedUser: User = {
+    name: '',
+    password: '',
+    score: 0
+  };
   usersUrl = 'http://localhost:5000/user/';
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
   constructor(private http: HttpClient) { }
 
-  // postUser(user: User){
-  //   return this.http.post(environment.apiBaseUrl+'/register',user,this.noAuthHeader)
-  // }
+  postUser(user: User) {
+    return this.http.post(environment.apiBaseUrl + '/user/create', user, this.noAuthHeader)
+  }
 
-  
-  /*addPost(post: Post){
-    return this.http.post('http://localhost:3000/api/post/createPost',{
-        title : post.title,
-        description : post.description
-    })
-}*/
-  // login(authCredentials) {
-  //   return this.http.post(environment.apiBaseUrl + '/authenticate', authCredentials,this.noAuthHeader);
-  // }
-  // getUserProfile() {
-  //   return this.http.get(environment.apiBaseUrl + '/category');
-  // }
+  login(authCredentials) {
+    return this.http.post(environment.apiBaseUrl + '/user/login', authCredentials, this.noAuthHeader);
+  }
+  getUserProfile() {
+    return this.http.get(environment.apiBaseUrl + '/category');
+  }
+
   setToken(token: string) {
     localStorage.setItem('token', token);
   }
