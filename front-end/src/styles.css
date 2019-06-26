@@ -2,9 +2,12 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
 /* BASIC */
-
+.panel-footer {
+    align-content: center;
+    margin-left: 25%;
+}
 html {
-  background-color: #84edff;
+  background-color: #ffffff;
 }
 
 body {
@@ -398,5 +401,10 @@ td.text-right {
   text-align: right;
 }
 
-html, body { height: 100%; background-color: #84edff;}
+.qcard {
+  align-content: center;
+}
+
+
+html, body { height: 100%; background-color: #ffffff;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

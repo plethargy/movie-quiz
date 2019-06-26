@@ -33,6 +33,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   choice1: [];
   choice2: [];
   choice3: [];
+  image: string = "../assets/img/images/";
+  qnumber: string = " ";
 
 
   // TIMER
@@ -60,6 +62,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   //************************************************************************************
   nextQuestion(): void {
     this.questions++;
+    this.getQuestionData("1");
     //this.getQuestionData();
 
     // this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -95,8 +98,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.choice1 = this.results[this.questions].choice1[0];
         this.choice2 = this.results[this.questions].choice2[0];
         this.choice3 = this.results[this.questions].choice3[0];
+        this.image += this.results[this.questions].image;
+        this.qnumber = this.questions.toString() + "/7"
+       // console.log(this.image);
+
        
       });
+      this.image = "../assets/img/images/"
     });
   }
 
