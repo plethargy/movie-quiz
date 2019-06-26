@@ -2,6 +2,11 @@
 ## Description
 Movie Quiz is a web and mobile based application that allows a user to play through a series of movie-based quizzes. Each correctly answered question will increase a user's score. The faster you answer, the more points you get. Users can choose from a variety of genres to be quizzed on. 
 
+## Project Links
+Link | Ver | Description
+--- | --- | ---
+<a href="https://github.com/plethargy/movie-quiz/blob/dev/documentation/Movie_Quiz_Brief_SRS.pdf" target="blank">SRS</a> | 1.0 | System requirements specification
+
 ## Getting started
 This section will provide a detailed explanation on the processes to follow if you would like to help develop or run our project.
 
