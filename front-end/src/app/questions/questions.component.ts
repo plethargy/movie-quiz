@@ -61,6 +61,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.questions++;
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       this.QuestionService.getQuestion("1").subscribe(questionData => {
+        console.log(questionData);
         this.question = questionData.results[this.questions].question;
         this.choice1 = questionData.results[this.questions].choice1[0];
         this.choice2 = questionData.results[this.questions].choice2[0];
