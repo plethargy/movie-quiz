@@ -3,9 +3,12 @@
 </div>
 
 <form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
-    <input type="text" name="fullName" #fullName="ngModel" [(ngModel)]="model.fullName" placeholder="Name"  required>
-    
-    <input type="password" name="password" #password="ngModel" [(ngModel)]="model.password" placeholder="Password" required minlength="8"
+  <input type="text" #name="ngModel" [(ngModel)]="userService.selectedUser.name" name="name" placeholder="Name"
+  required  [ngClass]="{'invalid-textbox' :signInForm.submitted && !name.valid }">
+  <div *ngIf="signInForm.submitted && !name.valid">
+    <label class="validation-message">Invalid credentials</label>
+  </div>
+    <input type="password" name="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" placeholder="Password" required minlength="8"
       [ngClass]="{'invalid-textbox' :signInForm.submitted && !password.valid }">
     <div *ngIf="signInForm.submitted && password.errors?.minlength">
       <label class="validation-message">Invalid credentials</label>
@@ -13,9 +16,9 @@
     <input type="submit" value="Sign In">
   </form>
   
-  <!--Confirm messge-->
-  <div class="success" *ngIf="showSucessMessage">
-    New User saved successfully
+  <!--Error messge-->
+  <div class="alert" *ngIf="showErrorMessage">
+    Login Failed
   </div>
   
   <!-- Error message -->
@@ -23,7 +26,3 @@
     {{serverErrorMessages}}
   </div>
   
-
-<p>
-  sign-in works!
-</p>
