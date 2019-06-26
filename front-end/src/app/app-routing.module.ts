@@ -16,8 +16,9 @@ const routes: Routes = [
     path: 'login', component: UserComponent,
     children: [{ path: '', component: SignInComponent }]
   },
+  { path: 'summary', component: SummaryComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: ''}
+  { path: '**', redirectTo: '' }
 
 ];
 
