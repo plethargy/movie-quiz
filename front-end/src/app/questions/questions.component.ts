@@ -12,6 +12,7 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { QuestionData } from "../models/questions.model";
 import { QuestionService } from "../services/question.service";
 import { TouchSequence } from 'selenium-webdriver';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-questions',
@@ -26,13 +27,17 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   questionSingle: QuestionData;
   categoryID: string;
 
-  // QUESION PLACE
+  // QUESION TYPES
   username: string = "bob"
   question: string;
   choice1: [];
   choice2: [];
   choice3: [];
-  
+  answer: boolean;
+  results: any = [];
+
+  // GETTING THE ANSWERS
+  public radio1: any;
 
   // TIMER
   timeSeconds: number = 10;
@@ -45,7 +50,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit() {
-  
+
     this.startTimer();
     this.nextQuestion();
   }
@@ -59,19 +64,46 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   //************************************************************************************
   nextQuestion(): void {
     this.questions++;
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      this.QuestionService.getQuestion("1").subscribe(questionData => {
-        this.question = questionData.results[this.questions].question;
-        this.choice1 = questionData.results[this.questions].choice1[0];
-        this.choice2 = questionData.results[this.questions].choice2[0];
-        this.choice3 = questionData.results[this.questions].choice3[0];
-      });
-    });
-    
-   
+    this.getQuestionData();
+    // this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    //   this.QuestionService.getQuestion("1").subscribe(questionData => {
+    //     this.question = questionData.results[this.questions].question;
+    //     this.choice1 = questionData.results[this.questions].choice1[0];
+    //     this.choice2 = questionData.results[this.questions].choice2[0];
+    //     this.choice3 = questionData.results[this.questions].choice3[0];
+    //   });
+    // });
+
+
     if (this.questions >= 7) {
       this.router.navigate(['/summary']);
     }
+  }
+
+  getQuestionData() {
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      this.QuestionService.getQuestion("1").subscribe(questionData => {
+        this.results = questionData["results"];
+        this.question = this.results[this.questions].question;
+        this.choice1 = this.results[this.questions].choice1[0];
+        this.choice2 = this.results[this.questions].choice2[0];
+        this.choice3 = this.results[this.questions].choice3[0];
+
+        if (this.results[this.questions].choice1[1] === true) {
+          this.answer = true;
+        } else if (this.results[this.questions].choice2[1] === true) {
+          this.answer = true;
+        } else if (this.results[this.questions].choice3[1] === true) {
+          this.answer = true;
+        }
+
+      });
+    });
+  }
+
+  onFormSubmit(form:NgForm){
+    this.radio1 = form.controls["radio1"].value;
+    console.log(this.radio1);
   }
 
   //************************************************************************************
