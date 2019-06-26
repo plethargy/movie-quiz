@@ -50,4 +50,27 @@ router.post('/create', (req, res, next) => {
     })
 })
 
+
+router.post('/delete', (req, res, next) =>{
+  Questions.deleteOne({ category: req.body.category },  (err) => {
+    if (err) 
+      res.status(200).json({
+        status: false,
+        results: err
+      }); 
+  })
+  .then(data => {
+    res.status(200).json({
+      status: true,
+      results: data
+    });
+  })
+  .catch(err => {
+    res.status(500).json({
+      status: false,
+      results: err
+    });
+  });
+});
+
 module.exports = router
