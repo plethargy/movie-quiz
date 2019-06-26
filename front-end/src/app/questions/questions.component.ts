@@ -156,7 +156,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   scoreCounter() {
     clearInterval(this.interval);
     this.timeMili = (this.timeSeconds % 1) * 1000;
-    console.log(this.timeMili);
 
     if (this.timeSeconds > 7) {
       this.score = (this.timeMili * 1000) * 3;
