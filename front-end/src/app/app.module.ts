@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
+import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { SummaryComponent } from './summary/summary.component';
 import { CategoryComponent } from './category/category.component';
@@ -18,18 +19,20 @@ import { HttpClientModule }    from '@angular/common/http';
     AppComponent,
     UserComponent,
     SignInComponent,
+    SignUpComponent,
     QuestionsComponent,
     SummaryComponent,
     CategoryComponent,
-    LeaderboardComponent,
-    HttpClientModule,
-    FormsModule
+    LeaderboardComponent
+    
+    
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
