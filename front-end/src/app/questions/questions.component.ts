@@ -41,7 +41,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   answer2: boolean;
   answer3: boolean;
   answer: boolean;
-  image: string;
+  image: string = "../assets/img/images/";
+  qnumber: string = " ";
 
   results: any = [];
 
@@ -123,10 +124,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.answer1 = this.results[this.questions].choice1[1];
         this.answer2 = this.results[this.questions].choice2[1];
         this.answer3 = this.results[this.questions].choice3[1];
-
-        this.image = this.results[this.questions].image;
-
+        this.image += this.results[this.questions].image;
+        this.qnumber = this.questions.toString() + "/7"
       });
+      this.image = "../assets/img/images/"
     });
   }
 
