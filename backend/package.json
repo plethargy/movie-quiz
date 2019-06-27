@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit ../tests/test.js"
+    "test": "mocha --exit ../tests/test.js",
+    "start": "node server"
+
   },
   "author": "Syntactic Sugar Derivco",
   "license": "ISC",
