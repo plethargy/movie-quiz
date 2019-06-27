@@ -29,5 +29,189 @@ You should now be able to access the website by browsing to localhost:4200.
 In order to execute the unit tests, you will first need to install the required testing modules. To do this, browse to the movie-quiz/backend folder and run the following command: ``` npm install ```
 Once this is installed, you can run the tests by executing the following command: ``` npm test ```
 
+
+## API
+### Users
+
+**Retrieve user list:**
+```http
+GET /user
+```
+
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "result" : [
+      { 
+      "name" : string
+      "score" : integer
+      }
+  ]
+}
+```
+
+**Create new user:**
+```http
+POST /user/create
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | **Required**. The user's unique name. |
+| `password` | `string` | **Required**. The user's password. |
+
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "result" : string
+}
+```
+
+**Authenticate user:**
+```http
+POST /user/login
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | **Required**. The user's unique name. |
+| `password` | `string` | **Required**. The user's password. |
+
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "result" : {
+    "name" : string,
+    "score" : integer
+  }
+}
+```
+
+**Update user score:**
+```http
+POST /user/update
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | **Required**. The user's unique name. |
+| `score` | `integer` | **Required**. The user's new score. |
+
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "result" : {
+    "name" : string,
+    "score" : integer
+  }
+}
+```
+
+### Questions
+
+**Retrieve questions from category:**
+```http
+GET /questions/:id
+```
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "results" : [
+    {
+      "choice1": [
+        string,
+        boolean
+      ],
+      "choice2": [
+        string,
+        boolean
+      ],
+      "choice3": [
+        string,
+        boolean
+      ],
+      "question": string,
+      "category": integer,
+      "image": string
+    }
+  ]
+}
+```
+
+**Creating a new question:**
+```http
+POST /questions/create
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `question` | `string` | **Required**. The full question. |
+| `choice1` | `array` | **Required**. A 2 index array of string and boolean. The first index is the choice shown and the second index is a true or false value depicting whether the choice is correct or not. |
+| `choice2` | `array` | **Required**. A 2 index array of string and boolean. The first index is the choice shown and the second index is a true or false value depicting whether the choice is correct or not. |
+| `choice3` | `array` | **Required**. A 2 index array of string and boolean. The first index is the choice shown and the second index is a true or false value depicting whether the choice is correct or not. |
+| `category` | `integer` | **Required**. The category ID that the question corresponds to. |
+| `image` | `string` | **Required**. The image name of the image corresponding to the question. |
+
+
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "results" : [
+    {
+      "choice1": [
+        string,
+        boolean
+      ],
+      "choice2": [
+        string,
+        boolean
+      ],
+      "choice3": [
+        string,
+        boolean
+      ],
+      "question": string,
+      "category": integer,
+      "image": string
+    }
+  ]
+}
+```
+
+**Deleting a question:**
+```http
+POST /questions/delete
+```
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `category` | `integer` | **Required**. The category ID that the question corresponds to. |
+
+
+### Category
+
+**Retrieving categories:**
+```http
+GET /category
+```
+
+**Response:**
+```javascript
+{
+  "status": true,
+  "results": [
+    {
+      "category": string,
+      "id": integer
+    }
+  ]
+}
+```
+
 ## Authors
 The Authors of this software are the Syntactic Sugar Derivco Winter School team. A full list of [contributors](https://github.com/plethargy/movie-quiz/graphs/contributors) can be seen by clicking the link.
