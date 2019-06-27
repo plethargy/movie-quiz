@@ -35,7 +35,7 @@ Once this is installed, you can run the tests by executing the following command
 
 **Retrieve user list:**
 ```http
-GET localhost:5000/user
+GET /user
 ```
 
 **Response:**
@@ -53,7 +53,7 @@ GET localhost:5000/user
 
 **Create new user:**
 ```http
-POST localhost:5000/user/create
+POST /user/create
 ```
 
 | Parameter | Type | Description |
@@ -71,7 +71,7 @@ POST localhost:5000/user/create
 
 **Authenticate user:**
 ```http
-POST localhost:5000/user/login
+POST /user/login
 ```
 
 | Parameter | Type | Description |
@@ -92,7 +92,7 @@ POST localhost:5000/user/login
 
 **Update user score:**
 ```http
-POST localhost:5000/user/update
+POST /user/update
 ```
 
 | Parameter | Type | Description |
@@ -111,6 +111,107 @@ POST localhost:5000/user/update
 }
 ```
 
+### Questions
+
+**Retrieve questions from category:**
+```http
+GET /questions/:id
+```
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "results" : [
+    {
+      "choice1": [
+        string,
+        boolean
+      ],
+      "choice2": [
+        string,
+        boolean
+      ],
+      "choice3": [
+        string,
+        boolean
+      ],
+      "question": string,
+      "category": integer,
+      "image": string
+    }
+  ]
+}
+```
+
+**Creating a new question:**
+```http
+POST /questions/create
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `question` | `string` | **Required**. The full question. |
+| `choice1` | `array` | **Required**. A 2 index array of string and boolean. The first index is the choice shown and the second index is a true or false value depicting whether the choice is correct or not. |
+| `choice2` | `array` | **Required**. A 2 index array of string and boolean. The first index is the choice shown and the second index is a true or false value depicting whether the choice is correct or not. |
+| `choice3` | `array` | **Required**. A 2 index array of string and boolean. The first index is the choice shown and the second index is a true or false value depicting whether the choice is correct or not. |
+| `category` | `integer` | **Required**. The category ID that the question corresponds to. |
+| `image` | `string` | **Required**. The image name of the image corresponding to the question. |
+
+
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "results" : [
+    {
+      "choice1": [
+        string,
+        boolean
+      ],
+      "choice2": [
+        string,
+        boolean
+      ],
+      "choice3": [
+        string,
+        boolean
+      ],
+      "question": string,
+      "category": integer,
+      "image": string
+    }
+  ]
+}
+```
+
+**Deleting a question:**
+```http
+POST /questions/delete
+```
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `category` | `integer` | **Required**. The category ID that the question corresponds to. |
+
+
+### Category
+
+**Retrieving categories:**
+```http
+GET /category
+```
+
+**Response:**
+```javascript
+{
+  "status": true,
+  "results": [
+    {
+      "category": string,
+      "id": integer
+    }
+  ]
+}
+```
 
 ## Authors
 The Authors of this software are the Syntactic Sugar Derivco Winter School team. A full list of [contributors](https://github.com/plethargy/movie-quiz/graphs/contributors) can be seen by clicking the link.
