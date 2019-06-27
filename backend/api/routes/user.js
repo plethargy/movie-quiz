@@ -11,9 +11,17 @@ router.get('/', (req, res, next) => {
     .find()
     .then(data => {
         let arr = data.sort((a, b) => {
-            return a.score < b.score; //sort in descending order
+            return b.score - a.score; //sort in descending order
         })
-        .slice(0, 25);
+        .slice(0, 25)
+        .map(elem => {
+            const usr = {
+                name : elem.name,
+                score : elem.score
+            }
+
+            return usr;
+        });
 
         res.status(200).json({
             status: true,
@@ -33,9 +41,17 @@ router.post('/', (req, res, next) => {
     .find()
     .then(data => {
         let arr = data.sort((a, b) => {
-            return a.score < b.score; //sort in descending order
+            return b.score - a.score; //sort in descending order
         })
-        .slice(0, 25);
+        .slice(0, 25)
+        .map(elem => {
+            const usr = {
+                name : elem.name,
+                score : elem.score
+            }
+
+            return usr;
+        });
 
         res.status(200).json({
             status: true,
@@ -60,9 +76,13 @@ router.post('/login', (req, res, next) => {
         {
             if (bcrypt.compareSync(req.body.password, data[0].password))
             {
+                const usr = {
+                    name : data[0].name,
+                    score : data[0].score
+                }
                 res.status(200).json({
                     status: true,
-                    result: data[0]
+                    result: usr
                 });
             }
             else
@@ -148,9 +168,13 @@ router.post('/update', (req, res, next) => {
         {
             User.findOneAndUpdate({ name : req.body.name}, { score : addition}, { new : true, runValidators : true})
             .then(reslt => {
+                const usr = {
+                    name : reslt.name,
+                    score : reslt.score
+                }
                 res.status(200).json({
                     status: true,
-                    result : reslt
+                    result : usr
                 });
             })
             .catch(err => {

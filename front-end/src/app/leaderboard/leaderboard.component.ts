@@ -14,11 +14,19 @@ export class LeaderboardComponent implements OnInit {
   ngOnInit() {
     this.userService.getLeaders().pipe().subscribe(users => {
       this.users = users.result;
-      console.log(users);
+      
     });
   }
   playAgain() {
-    this.router.navigate(['/category'], { skipLocationChange: false });
+    this.router.navigate(['/category']);
+  }
+  logOut() {
+    localStorage.removeItem("username");
+    if (localStorage.getItem('username') == null) {
+      // go back to klogin screen
+      this.router.navigate(['/login'], );
+
+    }
   }
 
 }

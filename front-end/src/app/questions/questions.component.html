@@ -1,3 +1,4 @@
+<!--
 <div class="container">
   <div class="row">
     <div class="col-sm-6">
@@ -16,32 +17,36 @@
             <br />
             <div class="panel panel-primary">
               <div class="panel-heading">
-
+                <img src="{{image}} ">
                 <pre>
                     {{question}}       
                 </pre>
               </div>
-              <!-- ANSWERS -->
+            
               <div class="panel-footer">
                 <div class="row">
                   <div class="funkyradio">
+                    <form #questionForm="ngForm" (ngSubmit)="onFormSubmit(questionForm)">
+                      <div class="funkyradio-danger">
+                        <input type="radio" id="radio1" name="selection" value="{{choice1}}" [(ngModel)]="result"
+                          required />
+                        <label for="radio1"> {{choice1}} </label>
+                      </div>
+                      <div class="funkyradio-warning">
+                        <input type="radio" id="radio2" name="selection" value="{{choice2}}" [(ngModel)]="result"
+                          required />
+                        <label for="radio2"> {{choice2}} </label>
+                      </div>
+                      <div class="funkyradio-info">
+                        <input type="radio" id="radio3" name="selection" value="{{choice3}}" [(ngModel)]="result"
+                          required />
+                        <label for="radio3"> {{choice3}} </label>
+                      </div>
 
-                    <div class="funkyradio-danger">
-                      <input type="radio" name="radio" id="radio4" />
-                      <label for="radio4">{{choice1}} </label>
-                    </div>
-                    <div class="funkyradio-warning">
-                      <input type="radio" name="radio" id="radio5" />
-                      <label for="radio5">{{choice2}} </label>
-                    </div>
-                    <div class="funkyradio-info">
-                      <input type="radio" name="radio" id="radio6" />
-                      <label for="radio6">{{choice3}} </label>
-                    </div>
-
-                    <div class="funkyradio-info mt-5">
-                      <button (click)="nextQuestion()" class="btn btn-primary"> Submit </button>
-                    </div>
+                      <div class="funkyradio-info mt-5">
+                        <button (click)="nextQuestion()" class="btn btn-primary"> Submit </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -55,9 +60,112 @@
 
       <div class="timer mt-5">
         <p>{{timeSeconds}}</p>
+        <p>
+          {{score}}
+        </p>
 
       </div>
 
     </div>
   </div>
 </div>
+
+-->
+<!--
+<form #questionForm="ngForm" (ngSubmit)="form.valid && onFormSubmit(questionForm)">
+  <div class="col-sm-6 timerdiv">
+
+      <div class="timer mt-5">
+        <p>{{timeSeconds}}</p>
+
+      </div>
+
+    </div>
+<div class="questions">
+  <div class="col-0 col-md-3"></div>
+  
+  <img class="card-img-top col col-md-6 text-center" src={{image}} alt="Card image" style="width:100%">
+  <div class="card-body">
+    <h4 class="card-title">{{qnumber}}</h4>
+    <p class="card-text">{{question}}</p>
+    <div class="panel-footer">
+      <div class="row">
+        <div class="funkyradio">
+          <div class="funkyradio-danger">
+            <input type="radio" name="radio" id="radio4" />
+            <label for="radio4">{{choice1}} </label>
+          </div>
+          <div class="funkyradio-warning">
+            <input type="radio" name="radio" id="radio5" />
+            <label for="radio5">{{choice2}} </label>
+          </div>
+          <div class="funkyradio-info">
+            <input type="radio" name="radio" id="radio6" />
+            <label for="radio6">{{choice3}} </label>
+          </div>
+
+          <div class="row">
+            <div class="col-0 col-md-3"></div>
+            <div class="col col-md-6 text-center">
+              <button (click)="nextQuestion()"  class="btn btn-danger btn-lg btn-block">Submit</button>
+            </div>
+          </div>
+
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div> 
+</form>
+-->
+<!-- Card -->
+<div class="col-sm-6 timerdiv">
+
+  <div class="timer mt-5">
+    <p>{{timeSeconds}}</p>
+
+  </div>
+
+</div>
+<div class="card">
+
+  <!-- Card image -->
+  <img class="card-img-top" src={{image}} alt="Card image cap">
+
+  <!-- Card content -->
+  <div class="card-body">
+
+    <!-- Title -->
+    <h4 class="card-title"><a>{{qnumber}}</a></h4>
+    <!-- Text -->
+    <p class="card-text">{{question}}</p>
+    <!-- Button -->
+    <div class="panel-footer">
+      <div class="row">
+        <div class="funkyradio">
+          <div class="funkyradio-danger">
+            <input type="radio" name="radio" id="radio4" />
+            <label for="radio4">{{choice1}} </label>
+          </div>
+          <div class="funkyradio-warning">
+            <input type="radio" name="radio" id="radio5" />
+            <label for="radio5">{{choice2}} </label>
+          </div>
+          <div class="funkyradio-info">
+            <input type="radio" name="radio" id="radio6" />
+            <label for="radio6">{{choice3}} </label>
+          </div>
+
+          <div class="row">
+            <div class="col-0 col-md-3"></div>
+              <button (click)="nextQuestion()"  class="btn btn-danger btn-lg btn-block">Submit</button>
+            </div>
+          </div>
+          </div>
+          </div>
+
+</div>
+<!-- Card -->
+

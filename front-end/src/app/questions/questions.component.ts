@@ -5,13 +5,17 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ActivatedRoute, ParamMap } from "@angular/router";
-
+import { switchMap } from "rxjs/operators";
 //************************************************************************************
 // Models
 //************************************************************************************
 import { QuestionData } from "../models/questions.model";
 import { QuestionService } from "../services/question.service";
 import { TouchSequence } from 'selenium-webdriver';
+import { NgForm } from '@angular/forms';
+import { User } from '../models/user.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-questions',
@@ -22,31 +26,52 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   //************************************************************************************
   // DECLARTIONS AND VARIABLES
   //************************************************************************************
-  questions: number = 0;
+  questions: number = -1;
   questionSingle: QuestionData;
   categoryID: string;
 
-  // QUESION PLACE
-  results: any[];
-  username: string = "bob"
+  // QUESION TYPES
+  username: string;
   question: string;
   choice1: [];
   choice2: [];
   choice3: [];
 
+  answer1: boolean;
+  answer2: boolean;
+  answer3: boolean;
+  answer: boolean;
+  image: string = "../assets/img/images/";
+  qnumber: string = " ";
+
+  results: any = [];
+
+  // GETTING THE ANSWERS
+  public result: any;
 
   // TIMER
   timeSeconds: number = 10;
-  timeMili: number;
-  score: number = 0;
+  timeMili: number = 10000;
+  timeLeft: number;
+  score: any = 0;
   totalScore: number = 0;
   interval;
 
-  constructor(public route: ActivatedRoute, public QuestionService: QuestionService, private router: Router) {
+  // ERRORS
+  showSucessMessage: boolean;
+  serverErrorMessages: string;
+
+  // CREATING AN OBJECT OF UPDATED USER
+  updateUser: QuestionData = {
+    name: '',
+    score: 0
+  };
+
+  constructor(public route: ActivatedRoute, public QuestionService: QuestionService, private router: Router, private http: HttpClient) {
 
   }
   ngOnInit() {
-
+    this.username = localStorage.getItem('username');
     this.startTimer();
     this.nextQuestion();
   }
@@ -60,44 +85,85 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   //************************************************************************************
   nextQuestion(): void {
     this.questions++;
-    //this.getQuestionData();
+    this.timeSeconds = 10;
+    this.getQuestionData();
 
-    // this.route.paramMap.subscribe((paramMap: ParamMap) => {
-    //   this.QuestionService.getQuestion("1").subscribe(questionData => {
+    if (this.questions >= 6) {
 
-    //     this.results = questionData["results"];
+      // PASSING THE JSON TO THE SERVER
+      this.QuestionService.postScore(this.updateUser);
+      this.http.post("http://localhost:5000/user/update", {
+        "name": this.username,
+        "score": this.score
+      })
+        .subscribe(
+          data => {
+            console.log("POST Request is successful ", data);
+          },
+          error => {
 
-    //     this.question = this.results[this.questions].question;
-    //     this.choice1 = this.results[this.questions].choice1[0];
-    //     this.choice2 = this.results[this.questions].choice2[0];
-    //     this.choice3 = this.results[this.questions].choice3[0];
-    //     //  this.question = questionData.results[this.questions].question;
-    //     //  this.choice1 = questionData.results[this.questions].choice1[0];
-    //     //  this.choice2 = questionData.results[this.questions].choice2[0];
-    //     //  this.choice3 = questionData.results[this.questions].choice3[0];
-    //   });
-    // });
+            console.log("Error", error);
 
-    if (this.questions >= 7) {
-      this.router.navigate(['/summary']);
+          });
+
+      this.router.navigate(['/summary'], { skipLocationChange: false });
+
+      clearInterval(this.interval);
     }
   }
 
-  correctQuestion(): void {
-
-  }
-
-  getQuestionData(answer: string) {
+  getQuestionData() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      this.QuestionService.getQuestion("1").subscribe(questionData => {
+      this.QuestionService.getQuestion(paramMap.get("id")).subscribe(questionData => {
         this.results = questionData["results"];
         this.question = this.results[this.questions].question;
         this.choice1 = this.results[this.questions].choice1[0];
         this.choice2 = this.results[this.questions].choice2[0];
         this.choice3 = this.results[this.questions].choice3[0];
-       
+
+        this.answer1 = this.results[this.questions].choice1[1];
+        this.answer2 = this.results[this.questions].choice2[1];
+        this.answer3 = this.results[this.questions].choice3[1];
+        this.image += this.results[this.questions].image;
+        this.qnumber = this.questions.toString() + "/7"
       });
+      this.image = "../assets/img/images/"
     });
+  }
+
+  // ON FORM SUMBIT
+  onFormSubmit(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+
+    this.result = form.controls["selection"].value;
+    this.getQuestionData();
+
+    if (this.choice1 == this.result) {
+      if (this.answer1 == true) {
+        this.scoreCounter();
+      }
+      else {
+        this.score += 0;
+      }
+    } else if (this.choice2 == this.result) {
+      if (this.answer2 == true) {
+        this.scoreCounter();
+      }
+      else {
+        this.score += 0;
+      }
+    } else if (this.choice3 == this.result) {
+      if (this.answer3 == true) {
+        this.scoreCounter();
+      }
+      else {
+        this.score += 0;
+      }
+    }
+    form.resetForm();
+
   }
 
   //************************************************************************************
@@ -108,25 +174,26 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   startTimer() {
     this.interval = setInterval(() => {
       if (this.timeSeconds > 0) {
-        this.timeSeconds--;
+        this.timeLeft = this.timeSeconds--;
         if (this.timeSeconds == 0) {
+          this.nextQuestion();
+          this.score += 0;
         }
       }
     }, 1000)
   }
 
   scoreCounter() {
-    clearInterval(this.interval);
-    this.timeMili = (this.timeSeconds % 1) * 1000;
 
-    if (this.timeSeconds > 7) {
-      this.score = (this.timeMili * 1000) * 3;
+    if (this.timeLeft >= 7) {
+      this.score += (this.timeLeft * 3) * 1000;
     }
-    else if (this.timeSeconds < 7 && this.timeSeconds > 3) {
-      this.score = (this.timeMili * 1000) * 2;
+    else if (this.timeLeft < 7 && this.timeLeft > 3) {
+      this.score += (this.timeLeft * 2) * 1000;
     }
     else {
-      this.score = (this.timeMili * 1000);
+      this.score += (this.timeLeft) * 1000;
+
     }
   }
 }

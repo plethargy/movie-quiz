@@ -7,23 +7,34 @@ import { CategoryComponent } from './category/category.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { SummaryComponent } from './summary/summary.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  //{ path: '', redirectTo: '/category', pathMatch: 'full' },
-  { path: 'category', component: CategoryComponent },
-  { path: 'summary', component: SummaryComponent },
-  { path: 'leaderboard', component: LeaderboardComponent },
-  { path: 'question/:id', component: QuestionsComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {
+    path: 'signup', component: UserComponent,
+    children: [{ path: '', component: SignUpComponent }]
+  },
+  {
+    path: 'category', component: CategoryComponent
+    ,
+    canActivate: [AuthGuard]},
+  {
+    path: 'leaderboard', component: LeaderboardComponent,
+    canActivate: [AuthGuard]},
+  {
+    path: 'question/:id', component: QuestionsComponent,
+    canActivate: [AuthGuard]},
+  {
+    path: 'summary', component: SummaryComponent,
+    canActivate: [AuthGuard]},
   {
     path: 'login', component: UserComponent,
     children: [{ path: '', component: SignInComponent }]
   },
-  {
-    path: 'signup', component: UserComponent,
-    children: [{ path: '', component: SignUpComponent }]
-},
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: ''}
+  
+  { path: '**', redirectTo: '' },
+
 
 ];
 
