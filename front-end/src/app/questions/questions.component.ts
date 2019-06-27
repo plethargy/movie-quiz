@@ -87,8 +87,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.questions++;
     this.timeSeconds = 10;
     this.getQuestionData();
-  
-    if (this.questions >= 6) {
+
+    if (this.questions >= 7) {
 
       // PASSING THE JSON TO THE SERVER
       this.QuestionService.postScore(this.updateUser);
@@ -107,6 +107,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
           });
 
       this.router.navigate(['/summary'], { skipLocationChange: false });
+      localStorage.setItem('score', this.score);
 
       clearInterval(this.interval);
     }
@@ -125,7 +126,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.answer2 = this.results[this.questions].choice2[1];
         this.answer3 = this.results[this.questions].choice3[1];
         this.image = "../assets/img/images/" + this.results[this.questions].image;
-        this.qnumber = this.questions.toString() + "/7"
+        this.qnumber = (this.questions + 1) + "/7"
       });
     });
   }
