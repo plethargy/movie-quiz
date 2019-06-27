@@ -17,6 +17,8 @@ import { User } from '../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IfStmt } from '@angular/compiler';
 
+import {Paho} from 'ng2-mqtt/mqttws31';
+
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
@@ -29,6 +31,11 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   questions: number = -1;
   questionSingle: QuestionData;
   categoryID: string;
+
+  private client;
+
+  mqttbroker = "iot.eclipse.org";
+  MQTT_CLIENT_ID = "iot_web_"+Math.floor((1 + Math.random()) * 0x10000000000).toString(16);
 
   // QUESION TYPES
   username: string;
@@ -71,9 +78,17 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit() {
+
+    this.client = new Paho.MQTT.Client(this.mqttbroker, Number(80), '/ws', this.MQTT_CLIENT_ID);
+    this.client.onMessageArrived = this.onMessageArrived.bind(this);
+    this.client.onConnectionLost = this.onConnectionLost.bind(this);
+    this.client.connect({onSuccess: this.onConnect.bind(this)});
+
     this.username = localStorage.getItem('username');
     this.startTimer();
     this.nextQuestion();
+
+    
   }
 
   ngOnDestroy() {
@@ -142,23 +157,29 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     if (this.choice1 == this.result) {
       if (this.answer1 == true) {
         this.scoreCounter();
+        this.sendMessage("green");
       }
       else {
         this.score += 0;
+        this.sendMessage("red");
       }
     } else if (this.choice2 == this.result) {
       if (this.answer2 == true) {
         this.scoreCounter();
+        this.sendMessage("green");
       }
       else {
         this.score += 0;
+        this.sendMessage("red");
       }
     } else if (this.choice3 == this.result) {
       if (this.answer3 == true) {
         this.scoreCounter();
+        this.sendMessage("green");
       }
       else {
         this.score += 0;
+        this.sendMessage("red");
       }
     }
     form.resetForm();
@@ -177,6 +198,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         if (this.timeSeconds == 0) {
           this.nextQuestion();
           this.score += 0;
+          this.sendMessage("turn led off");
         }
       }
     }, 1000)
@@ -194,5 +216,28 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.score += (this.timeLeft) * 1000;
 
     }
+  }
+
+  onConnect() {
+    console.log('onConnect');
+    this.client.subscribe('lindeman/test');
+  }
+
+  onConnectionLost(responseObject : any) {
+    if (responseObject.errorCode !== 0) {
+      console.log('onConnectionLost:' + responseObject.errorMessage);
+    }
+  }
+
+  onMessageArrived(message : any) {
+    console.log('onMessageArrived: ' + message.destinationName + ': ' + message.payloadString);
+  
+  
+  }
+
+  sendMessage(message: string) {
+    let packet = new Paho.MQTT.Message(message);
+    packet.destinationName = "lindeman/iot_tutorial/from_webpage";
+    this.client.send(packet);
   }
 }
