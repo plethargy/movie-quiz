@@ -29,5 +29,88 @@ You should now be able to access the website by browsing to localhost:4200.
 In order to execute the unit tests, you will first need to install the required testing modules. To do this, browse to the movie-quiz/backend folder and run the following command: ``` npm install ```
 Once this is installed, you can run the tests by executing the following command: ``` npm test ```
 
+
+## API
+### Users
+
+**Retrieve user list:**
+```http
+GET localhost:5000/user
+```
+
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "result" : [
+      { 
+      "name" : string
+      "score" : integer
+      }
+  ]
+}
+```
+
+**Create new user:**
+```http
+POST localhost:5000/user/create
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | **Required**. The user's unique name. |
+| `password` | `string` | **Required**. The user's password. |
+
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "result" : string
+}
+```
+
+**Authenticate user:**
+```http
+POST localhost:5000/user/login
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | **Required**. The user's unique name. |
+| `password` | `string` | **Required**. The user's password. |
+
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "result" : {
+    "name" : string,
+    "score" : integer
+  }
+}
+```
+
+**Update user score:**
+```http
+POST localhost:5000/user/update
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | **Required**. The user's unique name. |
+| `score` | `integer` | **Required**. The user's new score. |
+
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "result" : {
+    "name" : string,
+    "score" : integer
+  }
+}
+```
+
+
 ## Authors
 The Authors of this software are the Syntactic Sugar Derivco Winter School team. A full list of [contributors](https://github.com/plethargy/movie-quiz/graphs/contributors) can be seen by clicking the link.
