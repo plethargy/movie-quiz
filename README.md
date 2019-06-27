@@ -31,9 +31,13 @@ Once this is installed, you can run the tests by executing the following command
 
 
 ## API
-### Users
+### User
+
+**Description**
+The User API deals largely with CRUD operations relating to users on the system.
 
 **Retrieve user list:**
+This returns a list of the top 25 Users in the system (based on score).
 ```http
 GET /user
 ```
@@ -52,6 +56,7 @@ GET /user
 ```
 
 **Create new user:**
+This creates a new user on the system.
 ```http
 POST /user/create
 ```
@@ -70,6 +75,7 @@ POST /user/create
 ```
 
 **Authenticate user:**
+This is the login end of the API and authenticates whether a given username and password combo are authentic.
 ```http
 POST /user/login
 ```
@@ -91,6 +97,7 @@ POST /user/login
 ```
 
 **Update user score:**
+This will update the score of a user on the system. If the given score is not greater than their previous score, no update will be made.
 ```http
 POST /user/update
 ```
@@ -114,6 +121,7 @@ POST /user/update
 ### Questions
 
 **Retrieve questions from category:**
+This will receive all questions that are related to a specific category.
 ```http
 GET /questions/:id
 ```
@@ -144,6 +152,7 @@ GET /questions/:id
 ```
 
 **Creating a new question:**
+This will create a new question in the database and link it to a specific category.
 ```http
 POST /questions/create
 ```
@@ -185,6 +194,7 @@ POST /questions/create
 ```
 
 **Deleting a question:**
+This will remove a question from a given category.
 ```http
 POST /questions/delete
 ```
@@ -196,6 +206,7 @@ POST /questions/delete
 ### Category
 
 **Retrieving categories:**
+This will return a list of all categories in our database.
 ```http
 GET /category
 ```
