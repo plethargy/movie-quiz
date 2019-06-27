@@ -20,8 +20,10 @@ export class SignInComponent implements OnInit {
   serverErrorMessages: string;
   showErrorMessage: boolean;
   ngOnInit() {
+    var name = localStorage.getItem("username");
+    console.log(name);
     if (this.userService.isLoggedIn())
-      this.router.navigateByUrl('/userprofile');
+      this.router.navigate(['/userprofile'], { skipLocationChange: true });
   }
 
   onSubmit(form: NgForm) {
@@ -34,7 +36,7 @@ export class SignInComponent implements OnInit {
         setTimeout(() => this.showErrorMessage = false, 6000);
         this.resetForm(form);
         if (this.resultTemp.status == true)
-          this.router.navigateByUrl('/category');
+          this.router.navigate(['/category'], { skipLocationChange: false });
       },
       err => {
         this.serverErrorMessages = 'Servers are down sorry for the inconvenience';

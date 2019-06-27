@@ -106,7 +106,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
           });
 
-      this.router.navigate(['/summary']);
+      this.router.navigate(['/summary'], { skipLocationChange: false });
 
       clearInterval(this.interval);
     }
