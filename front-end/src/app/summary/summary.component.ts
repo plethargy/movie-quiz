@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from "@angular/forms";
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
@@ -7,13 +9,21 @@ import { NgForm } from "@angular/forms";
 })
 export class SummaryComponent implements OnInit {
 
-  constructor() { }
+  name: string;
+  score: string;
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    this.name = localStorage.getItem('username');
+    this.score = localStorage.getItem('score');
+  }
+  onClickLeaderBoard() {
+    this.router.navigate(['/leaderboard'], { skipLocationChange: false });
   }
 
-
-  onSubmit(form: NgForm) {
-    
+  onClickTryAgain(){
+    this.router.navigate(['/category'], { skipLocationChange: false });
   }
+
 }
