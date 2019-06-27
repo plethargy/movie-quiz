@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
     .find()
     .then(data => {
         let arr = data.sort((a, b) => {
-            return a.score < b.score; //sort in descending order
+            return b.score - a.score; //sort in descending order
         })
         .slice(0, 25);
 
@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
     .find()
     .then(data => {
         let arr = data.sort((a, b) => {
-            return a.score < b.score; //sort in descending order
+            return b.score - a.score; //sort in descending order
         })
         .slice(0, 25);
 
