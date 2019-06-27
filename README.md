@@ -31,11 +31,15 @@ Once this is installed, you can run the tests by executing the following command
 
 
 ## API
-### Users
+### User
+
+**Description**
+The User API deals largely with CRUD operations relating to users on the system.
 
 **Retrieve user list:**
+This returns a list of the top 25 Users in the system (based on score).
 ```http
-GET localhost:5000/user
+GET /user
 ```
 
 **Response:**
@@ -52,8 +56,9 @@ GET localhost:5000/user
 ```
 
 **Create new user:**
+This creates a new user on the system.
 ```http
-POST localhost:5000/user/create
+POST /user/create
 ```
 
 | Parameter | Type | Description |
@@ -70,8 +75,9 @@ POST localhost:5000/user/create
 ```
 
 **Authenticate user:**
+This is the login end of the API and authenticates whether a given username and password combo are authentic.
 ```http
-POST localhost:5000/user/login
+POST /user/login
 ```
 
 | Parameter | Type | Description |
@@ -91,8 +97,9 @@ POST localhost:5000/user/login
 ```
 
 **Update user score:**
+This will update the score of a user on the system. If the given score is not greater than their previous score, no update will be made.
 ```http
-POST localhost:5000/user/update
+POST /user/update
 ```
 
 | Parameter | Type | Description |
@@ -111,6 +118,111 @@ POST localhost:5000/user/update
 }
 ```
 
+### Questions
+
+**Retrieve questions from category:**
+This will receive all questions that are related to a specific category.
+```http
+GET /questions/:id
+```
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "results" : [
+    {
+      "choice1": [
+        string,
+        boolean
+      ],
+      "choice2": [
+        string,
+        boolean
+      ],
+      "choice3": [
+        string,
+        boolean
+      ],
+      "question": string,
+      "category": integer,
+      "image": string
+    }
+  ]
+}
+```
+
+**Creating a new question:**
+This will create a new question in the database and link it to a specific category.
+```http
+POST /questions/create
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `question` | `string` | **Required**. The full question. |
+| `choice1` | `array` | **Required**. A 2 index array of string and boolean. The first index is the choice shown and the second index is a true or false value depicting whether the choice is correct or not. |
+| `choice2` | `array` | **Required**. A 2 index array of string and boolean. The first index is the choice shown and the second index is a true or false value depicting whether the choice is correct or not. |
+| `choice3` | `array` | **Required**. A 2 index array of string and boolean. The first index is the choice shown and the second index is a true or false value depicting whether the choice is correct or not. |
+| `category` | `integer` | **Required**. The category ID that the question corresponds to. |
+| `image` | `string` | **Required**. The image name of the image corresponding to the question. |
+
+
+**Response:**
+```javascript
+{
+  "status" : boolean,
+  "results" : [
+    {
+      "choice1": [
+        string,
+        boolean
+      ],
+      "choice2": [
+        string,
+        boolean
+      ],
+      "choice3": [
+        string,
+        boolean
+      ],
+      "question": string,
+      "category": integer,
+      "image": string
+    }
+  ]
+}
+```
+
+**Deleting a question:**
+This will remove a question from a given category.
+```http
+POST /questions/delete
+```
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `category` | `integer` | **Required**. The category ID that the question corresponds to. |
+
+
+### Category
+
+**Retrieving categories:**
+This will return a list of all categories in our database.
+```http
+GET /category
+```
+
+**Response:**
+```javascript
+{
+  "status": true,
+  "results": [
+    {
+      "category": string,
+      "id": integer
+    }
+  ]
+}
+```
 
 ## Authors
 The Authors of this software are the Syntactic Sugar Derivco Winter School team. A full list of [contributors](https://github.com/plethargy/movie-quiz/graphs/contributors) can be seen by clicking the link.
