@@ -14,12 +14,17 @@ export class CategoryComponent implements OnInit {
   }
 
   goToCategory(category: number) {
-    this.router.navigate(['/question', category], { skipLocationChange: false });
+    this.router.navigate(['/question', category], { skipLocationChange: true });
     
   }
 
   goBack() {
-    this.router.navigate(['/login'], { skipLocationChange: false });
+    localStorage.removeItem("username");
+    if (localStorage.getItem('username')==null) {
+      // go back to klogin screen
+      this.router.navigate(['/login'], { skipLocationChange: true });
+
+    }
   }
   
 }

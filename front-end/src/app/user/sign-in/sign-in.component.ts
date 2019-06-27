@@ -20,6 +20,8 @@ export class SignInComponent implements OnInit {
   serverErrorMessages: string;
   showErrorMessage: boolean;
   ngOnInit() {
+    var name = localStorage.getItem("username");
+    console.log(name);
     if (this.userService.isLoggedIn())
       this.router.navigate(['/userprofile'], { skipLocationChange: true });
   }
