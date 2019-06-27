@@ -87,7 +87,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.questions++;
     this.timeSeconds = 10;
     this.getQuestionData();
-
+  
     if (this.questions >= 6) {
 
       // PASSING THE JSON TO THE SERVER
@@ -124,10 +124,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.answer1 = this.results[this.questions].choice1[1];
         this.answer2 = this.results[this.questions].choice2[1];
         this.answer3 = this.results[this.questions].choice3[1];
-        this.image += this.results[this.questions].image;
+        this.image = "../assets/img/images/" + this.results[this.questions].image;
         this.qnumber = this.questions.toString() + "/7"
       });
-      this.image = "../assets/img/images/"
     });
   }
 
