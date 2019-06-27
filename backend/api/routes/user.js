@@ -60,9 +60,13 @@ router.post('/login', (req, res, next) => {
         {
             if (bcrypt.compareSync(req.body.password, data[0].password))
             {
+                const usr = {
+                    name : data[0].name,
+                    score : data[0].score
+                }
                 res.status(200).json({
                     status: true,
-                    result: data[0]
+                    result: usr
                 });
             }
             else
