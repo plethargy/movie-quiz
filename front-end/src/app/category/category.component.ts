@@ -15,7 +15,7 @@ export class CategoryComponent implements OnInit {
 
   goToCategory(category: number) {
     this.router.navigate(['/question', category], { skipLocationChange: false });
-    console.log(category);
+    
   }
 
   goBack() {

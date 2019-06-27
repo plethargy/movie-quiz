@@ -18,7 +18,7 @@ export class LeaderboardComponent implements OnInit {
     });
   }
   playAgain() {
-    this.router.navigate(['/category'], { skipLocationChange: false });
+    this.router.navigate(['/category'], { skipLocationChange: true });
   }
 
 }

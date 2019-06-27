@@ -80,7 +80,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
       this.QuestionService.postScore(this.score);
 
-      this.router.navigate(['/summary']);
+      this.router.navigate(['/summary'], { skipLocationChange: false });
 
       clearInterval(this.interval);
     }
