@@ -11,6 +11,7 @@ import { SummaryComponent } from './summary/summary.component';
 const routes: Routes = [
   //{ path: '', redirectTo: '/category', pathMatch: 'full' },
   { path: 'category', component: CategoryComponent },
+  { path: 'summary', component: SummaryComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'question/:id', component: QuestionsComponent },
   {

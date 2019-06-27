@@ -2,7 +2,34 @@
   clear: both;
   overflow: hidden;
 }
+.btncontainer{
+  display: inline-block;
+}
+.btncontainersuccess{
+  
+  float: right;
 
+}
+.btncontainerdanger{
+
+  float: left;
+
+}
+.btn-success{
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display:inline-block;
+  align-self: flex-start;
+}
+.btn-danger{
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display:inline;
+}
 .funkyradio label {
   width: 100%;
   border-radius: 3px;

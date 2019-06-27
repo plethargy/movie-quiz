@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { NgForm } from "@angular/forms";
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
@@ -12,4 +12,8 @@ export class SummaryComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  onSubmit(form: NgForm) {
+    
+  }
 }
