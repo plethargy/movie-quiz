@@ -13,7 +13,15 @@ router.get('/', (req, res, next) => {
         let arr = data.sort((a, b) => {
             return b.score - a.score; //sort in descending order
         })
-        .slice(0, 25);
+        .slice(0, 25)
+        .map(elem => {
+            const usr = {
+                name : elem.name,
+                score : elem.score
+            }
+
+            return usr;
+        });
 
         res.status(200).json({
             status: true,
@@ -35,7 +43,15 @@ router.post('/', (req, res, next) => {
         let arr = data.sort((a, b) => {
             return b.score - a.score; //sort in descending order
         })
-        .slice(0, 25);
+        .slice(0, 25)
+        .map(elem => {
+            const usr = {
+                name : elem.name,
+                score : elem.score
+            }
+
+            return usr;
+        });
 
         res.status(200).json({
             status: true,
@@ -152,9 +168,13 @@ router.post('/update', (req, res, next) => {
         {
             User.findOneAndUpdate({ name : req.body.name}, { score : addition}, { new : true, runValidators : true})
             .then(reslt => {
+                const usr = {
+                    name : reslt.name,
+                    score : reslt.score
+                }
                 res.status(200).json({
                     status: true,
-                    result : reslt
+                    result : usr
                 });
             })
             .catch(err => {
