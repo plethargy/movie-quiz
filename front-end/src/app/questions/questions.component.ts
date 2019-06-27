@@ -6,7 +6,6 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { switchMap } from "rxjs/operators";
-
 //************************************************************************************
 // Models
 //************************************************************************************
@@ -14,6 +13,9 @@ import { QuestionData } from "../models/questions.model";
 import { QuestionService } from "../services/question.service";
 import { TouchSequence } from 'selenium-webdriver';
 import { NgForm } from '@angular/forms';
+import { User } from '../models/user.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-questions',
@@ -29,7 +31,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   categoryID: string;
 
   // QUESION TYPES
-  username: string = "bob"
+  username: string;
   question: string;
   choice1: [];
   choice2: [];
@@ -55,11 +57,21 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   totalScore: number = 0;
   interval;
 
-  constructor(public route: ActivatedRoute, public QuestionService: QuestionService, private router: Router) {
+  // ERRORS
+  showSucessMessage: boolean;
+  serverErrorMessages: string;
+
+  // CREATING AN OBJECT OF UPDATED USER
+  updateUser: QuestionData = {
+    name: '',
+    score: 0
+  };
+
+  constructor(public route: ActivatedRoute, public QuestionService: QuestionService, private router: Router, private http: HttpClient) {
 
   }
   ngOnInit() {
-
+    this.username = localStorage.getItem('username');
     this.startTimer();
     this.nextQuestion();
   }
@@ -67,7 +79,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
 
   }
-
 
   //************************************************************************************
   // FUNCTIONS
@@ -79,7 +90,21 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
     if (this.questions >= 6) {
 
-      this.QuestionService.postScore(this.score);
+      // PASSING THE JSON TO THE SERVER
+      this.QuestionService.postScore(this.updateUser);
+      this.http.post("http://localhost:5000/user/update", {
+        "name": this.username,
+        "score": this.score
+      })
+        .subscribe(
+          data => {
+            console.log("POST Request is successful ", data);
+          },
+          error => {
+
+            console.log("Error", error);
+
+          });
 
       this.router.navigate(['/summary']);
 
@@ -118,7 +143,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     if (this.choice1 == this.result) {
       if (this.answer1 == true) {
         this.scoreCounter();
-        console.log(this.score);
       }
       else {
         this.score += 0;
@@ -126,7 +150,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     } else if (this.choice2 == this.result) {
       if (this.answer2 == true) {
         this.scoreCounter();
-        console.log(this.score);
       }
       else {
         this.score += 0;
@@ -134,13 +157,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     } else if (this.choice3 == this.result) {
       if (this.answer3 == true) {
         this.scoreCounter();
-        console.log(this.score);
       }
       else {
         this.score += 0;
       }
     }
     form.resetForm();
+
   }
 
   //************************************************************************************
