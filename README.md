@@ -97,6 +97,7 @@ POST /user/login
 ```
 
 **Update user score:**
+This will update the score of a user on the system. If the given score is not greater than their previous score, no update will be made.
 ```http
 POST /user/update
 ```
