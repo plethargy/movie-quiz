@@ -18,13 +18,13 @@ export class LeaderboardComponent implements OnInit {
     });
   }
   playAgain() {
-    this.router.navigate(['/category'], { skipLocationChange: true });
+    this.router.navigate(['/category']);
   }
   logOut() {
     localStorage.removeItem("username");
     if (localStorage.getItem('username') == null) {
       // go back to klogin screen
-      this.router.navigate(['/login'], { skipLocationChange: false });
+      this.router.navigate(['/login'], );
 
     }
   }
