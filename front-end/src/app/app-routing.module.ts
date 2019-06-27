@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'category', component: CategoryComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'question/:id', component: QuestionsComponent },
+  { path: 'summary', component: SummaryComponent },
   {
     path: 'login', component: UserComponent,
     children: [{ path: '', component: SignInComponent }]
@@ -20,9 +21,10 @@ const routes: Routes = [
   {
     path: 'signup', component: UserComponent,
     children: [{ path: '', component: SignUpComponent }]
-},
+  },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: ''}
+  { path: '**', redirectTo: '' },
+
 
 ];
 
