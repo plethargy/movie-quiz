@@ -1,28 +1,29 @@
-
 <div>
   <img src="/assets/img/logo.png" id="icon" alt="User Icon" />
 </div>
 <form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
-  <input type="text" #name="ngModel" [(ngModel)]="userService.selectedUser.name" name="name" placeholder="Name"
- required  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !name.valid }">
- <div *ngIf="signUpForm.submitted && !name.valid">
-   <label class="validation-message">This field is required.</label>
- </div>
- 
- <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="Password"
-required [pattern] ="passwordRegex" [ngClass]="{'invalid-textbox' :signUpForm.submitted && !password.valid }">
- <div *ngIf="signUpForm.submitted && password.errors">
-     <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
-     <label *ngIf="password.errors.pattern" class="validation-message">Please enter a password that contains lower case, upper case letters, at least one number and be at least 8 characters or longer</label>
-   </div>
- <input type="submit" value="Sign Up">
+  <input type="text" #name="ngModel" [(ngModel)]="userService.selectedUser.name" name="name" placeholder="Name" required
+    [ngClass]="{'invalid-textbox' :signUpForm.submitted && !name.valid }">
+  <div *ngIf="signUpForm.submitted && !name.valid">
+    <label class="validation-message">This field is required.</label>
+  </div>
+
+  <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password"
+    placeholder="Password" required [pattern]="passwordRegex"
+    [ngClass]="{'invalid-textbox' :signUpForm.submitted && !password.valid }">
+  <div *ngIf="signUpForm.submitted && password.errors">
+    <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+    <label *ngIf="password.errors.pattern" class="validation-message">Please enter a password that contains lower case,
+      upper case letters, at least one number and be at least 8 characters or longer</label>
+  </div>
+  <input type="submit" value="Sign Up">
 
 </form>
 
 <div class="success" *ngIf="showSucessMessage">
- New User saved successfully
+  New User saved successfully
 </div>
 
 <div class="alert" *ngIf="serverErrorMessages">
-   {{serverErrorMessages}}
- </div>
+  {{serverErrorMessages}}
+</div>

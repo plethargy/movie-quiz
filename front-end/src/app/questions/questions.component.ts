@@ -50,7 +50,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   timeSeconds: number = 10;
   timeMili: number = 10000;
   timeLeft: number;
-  score: number = 0;
+  score: any = 0;
   totalScore: number = 0;
   interval;
 
@@ -67,6 +67,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   }
 
+
   //************************************************************************************
   // FUNCTIONS
   //************************************************************************************
@@ -75,8 +76,12 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.timeSeconds = 10;
     this.getQuestionData();
 
-    if (this.questions > 6) {
+    if (this.questions >= 6) {
+
+      this.QuestionService.postScore(this.score);
+
       this.router.navigate(['/summary']);
+
       clearInterval(this.interval);
     }
   }
