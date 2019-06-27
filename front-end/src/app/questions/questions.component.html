@@ -21,22 +21,25 @@
                     {{question}}       
                 </pre>
               </div>
+
               <!-- ANSWERS -->
               <div class="panel-footer">
                 <div class="row">
                   <div class="funkyradio">
-
                     <form #questionForm="ngForm" (ngSubmit)="onFormSubmit(questionForm)">
                       <div class="funkyradio-danger">
-                        <input type="radio" id="radio1" name="selection" value="{{choice1}}" [(ngModel)]="result" />
+                        <input type="radio" id="radio1" name="selection" value="{{choice1}}" [(ngModel)]="result"
+                          required />
                         <label for="radio1"> {{choice1}} </label>
                       </div>
                       <div class="funkyradio-warning">
-                        <input type="radio" id="radio2" name="selection" value="{{choice2}}" [(ngModel)]="result" />
+                        <input type="radio" id="radio2" name="selection" value="{{choice2}}" [(ngModel)]="result"
+                          required />
                         <label for="radio2"> {{choice2}} </label>
                       </div>
                       <div class="funkyradio-info">
-                        <input type="radio" id="radio3" name="selection" value="{{choice3}}" [(ngModel)]="result" />
+                        <input type="radio" id="radio3" name="selection" value="{{choice3}}" [(ngModel)]="result"
+                          required />
                         <label for="radio3"> {{choice3}} </label>
                       </div>
 
@@ -57,6 +60,9 @@
 
       <div class="timer mt-5">
         <p>{{timeSeconds}}</p>
+        <p>
+          {{score}}
+        </p>
 
       </div>
 
