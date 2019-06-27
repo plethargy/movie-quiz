@@ -76,7 +76,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.timeSeconds = 10;
     this.getQuestionData();
 
-    if (this.questions > 6) {
+    if (this.questions >= 6) {
 
       this.QuestionService.postScore(this.score);
 

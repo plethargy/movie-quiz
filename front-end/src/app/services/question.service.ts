@@ -30,6 +30,6 @@ export class QuestionService {
     }
 
     postScore(user: User) {
-        return this.http.post<{}>('http://localhost:5000/user/update', user);
+        return this.http.post('http://localhost:5000/user/update', user );
     }
 }
