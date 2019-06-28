@@ -87,8 +87,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.username = localStorage.getItem('username');
     this.startTimer();
     this.nextQuestion();
-
-    
   }
 
   ngOnDestroy() {
@@ -103,8 +101,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.timeSeconds = 10;
     this.getQuestionData();
 
-    if (this.questions >= 7) {
-
+    if (this.questions >= 7 ) {
+      this.questions--;
       // PASSING THE JSON TO THE SERVER
       this.QuestionService.postScore(this.updateUser);
       this.http.post("http://localhost:5000/user/update", {
