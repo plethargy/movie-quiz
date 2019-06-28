@@ -66,7 +66,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   // ERRORS
   showSucessMessage: boolean;
-  serverErrorMessages: string;
+  showErrorMessages: boolean;
 
   // CREATING AN OBJECT OF UPDATED USER
   updateUser: QuestionData = {
@@ -154,27 +154,38 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     }
     this.result = form.controls["selection"].value;
     this.getQuestionData();
+    this.showSucessMessage = false;
 
     if (this.choice1 == this.result) {
       if (this.answer1 == true) {
+        this.showErrorMessages = false;
+        this.showSucessMessage = true;
         this.scoreCounter();
         this.sendMessage("green");
       }
       else {
         this.score += 0;
+        this.showSucessMessage = false;
+        this.showErrorMessages = true;
         this.sendMessage("red");
       }
     } else if (this.choice2 == this.result) {
       if (this.answer2 == true) {
+        this.showErrorMessages = false;
+        this.showSucessMessage = true;
         this.scoreCounter();
         this.sendMessage("green");
       }
       else {
         this.score += 0;
+        this.showSucessMessage = false;
+        this.showErrorMessages = true;
         this.sendMessage("red");
       }
     } else if (this.choice3 == this.result) {
       if (this.answer3 == true) {
+        this.showErrorMessages = false;
+        this.showSucessMessage = true;
         this.scoreCounter();
         this.sendMessage("green");
       }
