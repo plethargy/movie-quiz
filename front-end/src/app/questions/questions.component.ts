@@ -17,7 +17,7 @@ import { User } from '../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IfStmt } from '@angular/compiler';
 
-import {Paho} from 'ng2-mqtt/mqttws31';
+import { Paho } from 'ng2-mqtt/mqttws31';
 
 @Component({
   selector: 'app-questions',
@@ -35,7 +35,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   private client;
 
   mqttbroker = "iot.eclipse.org";
-  MQTT_CLIENT_ID = "iot_web_"+Math.floor((1 + Math.random()) * 0x10000000000).toString(16);
+  MQTT_CLIENT_ID = "iot_web_" + Math.floor((1 + Math.random()) * 0x10000000000).toString(16);
 
   // QUESION TYPES
   username: string;
@@ -50,7 +50,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   answer: boolean;
   image: string = "../assets/img/images/";
   qnumber: string = " ";
-  
+
   results: any = [];
 
   // GETTING THE ANSWERS
@@ -61,7 +61,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   timeMili: number = 10000;
   timeLeft: number;
   score: any = 0;
-  totalScore: number = 0;
   interval;
 
   // ERRORS
@@ -82,13 +81,14 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.client = new Paho.MQTT.Client(this.mqttbroker, Number(80), '/ws', this.MQTT_CLIENT_ID);
     this.client.onMessageArrived = this.onMessageArrived.bind(this);
     this.client.onConnectionLost = this.onConnectionLost.bind(this);
-    this.client.connect({onSuccess: this.onConnect.bind(this)});
+    this.client.connect({ onSuccess: this.onConnect.bind(this) });
 
     this.username = localStorage.getItem('username');
-    this.startTimer();
-    this.nextQuestion();
 
-    
+    if (this.questions < 7) {
+      this.startTimer();
+      this.nextQuestion();
+    }
   }
 
   ngOnDestroy() {
@@ -103,8 +103,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.timeSeconds = 10;
     this.getQuestionData();
 
-    if (this.questions >= 7) {
-
+    if (this.questions > 7) {
       // PASSING THE JSON TO THE SERVER
       this.QuestionService.postScore(this.updateUser);
       this.http.post("http://localhost:5000/user/update", {
@@ -120,9 +119,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
             console.log("Error", error);
 
           });
-      
-      this.router.navigate(['/summary'], { skipLocationChange: false });
       localStorage.setItem('score', this.score);
+      this.router.navigate(['/summary'], { skipLocationChange: false });
+
 
       clearInterval(this.interval);
     }
@@ -131,7 +130,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   getQuestionData() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       this.QuestionService.getQuestion(paramMap.get("id")).subscribe(questionData => {
+        console.log(questionData);
         this.results = questionData["results"];
+        console.log(this.results);
         this.question = this.results[this.questions].question;
         this.choice1 = this.results[this.questions].choice1[0];
         this.choice2 = this.results[this.questions].choice2[0];
@@ -146,46 +147,53 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     });
   }
 
+  
+
   // ON FORM SUMBIT
   onFormSubmit(form: NgForm) {
+    console.log('submitting form');
     if (form.invalid) {
       return;
     }
-
     this.result = form.controls["selection"].value;
-    this.getQuestionData();
+    //this.getQuestionData();
     this.showSucessMessage = false;
 
     if (this.choice1 == this.result) {
       if (this.answer1 == true) {
+        this.showErrorMessages = false;
         this.showSucessMessage = true;
-        setTimeout(() => this.showSucessMessage = false, 6000);
+        //setTimeout(() => this.showSucessMessage = false, 6000);
         this.scoreCounter();
         this.sendMessage("green");
       }
       else {
         this.score += 0;
+        this.showSucessMessage = false;
         this.showErrorMessages = true;
-        setTimeout(() => this.showErrorMessages = false, 6000);
+        //setTimeout(() => this.showErrorMessages = false, 6000);
         this.sendMessage("red");
       }
     } else if (this.choice2 == this.result) {
       if (this.answer2 == true) {
+        this.showErrorMessages = false;
         this.showSucessMessage = true;
-        setTimeout(() => this.showSucessMessage = false, 6000);
+        //setTimeout(() => this.showSucessMessage = false, 6000);
         this.scoreCounter();
         this.sendMessage("green");
       }
       else {
         this.score += 0;
+        this.showSucessMessage = false;
         this.showErrorMessages = true;
-        setTimeout(() => this.showErrorMessages = false, 6000);
+        //setTimeout(() => this.showErrorMessages = false, 6000);
         this.sendMessage("red");
       }
     } else if (this.choice3 == this.result) {
       if (this.answer3 == true) {
+        this.showErrorMessages = false;
         this.showSucessMessage = true;
-        setTimeout(() => this.showSucessMessage = false, 6000);
+        //setTimeout(() => this.showSucessMessage = false, 6000);
         this.scoreCounter();
         this.sendMessage("green");
       }
@@ -195,7 +203,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       }
     }
     form.resetForm();
-
   }
 
   //************************************************************************************
@@ -235,16 +242,16 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.client.subscribe('lindeman/test');
   }
 
-  onConnectionLost(responseObject : any) {
+  onConnectionLost(responseObject: any) {
     if (responseObject.errorCode !== 0) {
       console.log('onConnectionLost:' + responseObject.errorMessage);
     }
   }
 
-  onMessageArrived(message : any) {
+  onMessageArrived(message: any) {
     console.log('onMessageArrived: ' + message.destinationName + ': ' + message.payloadString);
-  
-  
+
+
   }
 
   sendMessage(message: string) {
