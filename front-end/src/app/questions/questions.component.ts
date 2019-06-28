@@ -50,7 +50,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   answer: boolean;
   image: string = "../assets/img/images/";
   qnumber: string = " ";
-
+  
   results: any = [];
 
   // GETTING THE ANSWERS
@@ -66,7 +66,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   // ERRORS
   showSucessMessage: boolean;
-  serverErrorMessages: string;
+  showErrorMessages: boolean;
 
   // CREATING AN OBJECT OF UPDATED USER
   updateUser: QuestionData = {
@@ -120,7 +120,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
             console.log("Error", error);
 
           });
-
+      
       this.router.navigate(['/summary'], { skipLocationChange: false });
       localStorage.setItem('score', this.score);
 
@@ -154,27 +154,38 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
     this.result = form.controls["selection"].value;
     this.getQuestionData();
+    this.showSucessMessage = false;
 
     if (this.choice1 == this.result) {
       if (this.answer1 == true) {
+        this.showSucessMessage = true;
+        setTimeout(() => this.showSucessMessage = false, 6000);
         this.scoreCounter();
         this.sendMessage("green");
       }
       else {
         this.score += 0;
+        this.showErrorMessages = true;
+        setTimeout(() => this.showErrorMessages = false, 6000);
         this.sendMessage("red");
       }
     } else if (this.choice2 == this.result) {
       if (this.answer2 == true) {
+        this.showSucessMessage = true;
+        setTimeout(() => this.showSucessMessage = false, 6000);
         this.scoreCounter();
         this.sendMessage("green");
       }
       else {
         this.score += 0;
+        this.showErrorMessages = true;
+        setTimeout(() => this.showErrorMessages = false, 6000);
         this.sendMessage("red");
       }
     } else if (this.choice3 == this.result) {
       if (this.answer3 == true) {
+        this.showSucessMessage = true;
+        setTimeout(() => this.showSucessMessage = false, 6000);
         this.scoreCounter();
         this.sendMessage("green");
       }
