@@ -148,7 +148,12 @@
         </div>
       </div>
     </div>
-
+    <div class="success" *ngIf="showSucessMessage">
+      Correct!!!!
+    </div>
+    <div class="alert" *ngIf="showErrorMessages">
+      Wrong answer...
+    </div>
     <!-- Text -->
     <p class="card-text">{{question}}</p>
     <!-- Button -->
