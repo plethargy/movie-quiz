@@ -21,13 +21,13 @@ export class SignInComponent implements OnInit {
   showErrorMessage: boolean;
   ngOnInit() {
     var name = localStorage.getItem("username");
-    console.log(name);
+    //console.log(name);
     if (this.userService.isLoggedIn())
       this.router.navigate(['/userprofile'], { skipLocationChange: true });
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value.name);
+    //console.log(form.value.name);
     localStorage.setItem('username', form.value.name);
     this.userService.login(form.value).subscribe(
       res => {
@@ -36,7 +36,7 @@ export class SignInComponent implements OnInit {
         setTimeout(() => this.showErrorMessage = false, 6000);
         this.resetForm(form);
         if (this.resultTemp.status == true)
-          this.router.navigate(['/home'], { skipLocationChange: false });
+          this.router.navigate(['/category'], { skipLocationChange: false });
       },
       err => {
         this.serverErrorMessages = 'Servers are down sorry for the inconvenience';
