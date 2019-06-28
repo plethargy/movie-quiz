@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   }
 
   onClickNext() {
-    this.router.navigate(['/category']);
+    this.router.navigate(['/login']);
   }
 
 }
