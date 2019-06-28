@@ -13,6 +13,8 @@ import {UserService} from './services/user.service';
 import { HttpClientModule }    from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
     SummaryComponent,
     CategoryComponent,
     LeaderboardComponent,
+    NavBarComponent,
+    HomeComponent,
     
     
   ],

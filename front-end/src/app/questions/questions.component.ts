@@ -61,11 +61,12 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   timeMili: number = 10000;
   timeLeft: number;
   score: any = 0;
+  totalScore: number = 0;
   interval;
 
   // ERRORS
   showSucessMessage: boolean;
-  showErrorMessages: boolean;
+  serverErrorMessages: string;
 
   // CREATING AN OBJECT OF UPDATED USER
   updateUser: QuestionData = {
@@ -84,11 +85,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.client.connect({ onSuccess: this.onConnect.bind(this) });
 
     this.username = localStorage.getItem('username');
-
-    if (this.questions < 7) {
-      this.startTimer();
-      this.nextQuestion();
-    }
+    this.startTimer();
+    this.nextQuestion();
   }
 
   ngOnDestroy() {
@@ -103,36 +101,15 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.timeSeconds = 10;
     this.getQuestionData();
 
-    if (this.questions > 7) {
-      // PASSING THE JSON TO THE SERVER
-      this.QuestionService.postScore(this.updateUser);
-      this.http.post("http://localhost:5000/user/update", {
-        "name": this.username,
-        "score": this.score
-      })
-        .subscribe(
-          data => {
-            console.log("POST Request is successful ", data);
-          },
-          error => {
-
-            console.log("Error", error);
-
-          });
-      localStorage.setItem('score', this.score);
-      this.router.navigate(['/summary'], { skipLocationChange: false });
-
-
-      clearInterval(this.interval);
+    if (this.questions >= 8) {
+      this.onFinish();
     }
   }
 
   getQuestionData() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       this.QuestionService.getQuestion(paramMap.get("id")).subscribe(questionData => {
-        console.log(questionData);
         this.results = questionData["results"];
-        console.log(this.results);
         this.question = this.results[this.questions].question;
         this.choice1 = this.results[this.questions].choice1[0];
         this.choice2 = this.results[this.questions].choice2[0];
@@ -147,53 +124,57 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     });
   }
 
-  
+  onFinish() {
+    // PASSING THE JSON TO THE SERVER
+    
+    this.QuestionService.postScore(this.updateUser);
+    this.http.post("http://localhost:5000/user/update", {
+      "name": this.username,
+      "score": this.score
+    })
+      .subscribe(
+        data => {
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+
+          console.log("Error", error);
+
+        });
+
+    this.router.navigate(['/summary'], { skipLocationChange: false });
+    localStorage.setItem('score', this.score);
+    clearInterval(this.interval);
+  }
 
   // ON FORM SUMBIT
   onFormSubmit(form: NgForm) {
-    console.log('submitting form');
     if (form.invalid) {
       return;
     }
     this.result = form.controls["selection"].value;
-    //this.getQuestionData();
-    this.showSucessMessage = false;
+    this.getQuestionData();
 
     if (this.choice1 == this.result) {
       if (this.answer1 == true) {
-        this.showErrorMessages = false;
-        this.showSucessMessage = true;
-        //setTimeout(() => this.showSucessMessage = false, 6000);
         this.scoreCounter();
         this.sendMessage("green");
       }
       else {
         this.score += 0;
-        this.showSucessMessage = false;
-        this.showErrorMessages = true;
-        //setTimeout(() => this.showErrorMessages = false, 6000);
         this.sendMessage("red");
       }
     } else if (this.choice2 == this.result) {
       if (this.answer2 == true) {
-        this.showErrorMessages = false;
-        this.showSucessMessage = true;
-        //setTimeout(() => this.showSucessMessage = false, 6000);
         this.scoreCounter();
         this.sendMessage("green");
       }
       else {
         this.score += 0;
-        this.showSucessMessage = false;
-        this.showErrorMessages = true;
-        //setTimeout(() => this.showErrorMessages = false, 6000);
         this.sendMessage("red");
       }
     } else if (this.choice3 == this.result) {
       if (this.answer3 == true) {
-        this.showErrorMessages = false;
-        this.showSucessMessage = true;
-        //setTimeout(() => this.showSucessMessage = false, 6000);
         this.scoreCounter();
         this.sendMessage("green");
       }
@@ -203,6 +184,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       }
     }
     form.resetForm();
+
   }
 
   //************************************************************************************

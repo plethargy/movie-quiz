@@ -1,0 +1,311 @@
+{
+  "id": "a419ac21-c37e-4096-8ea4-d59b59cc9259",
+  "version": "2.0",
+  "name": "movie-quiz-test",
+  "url": "http://localhost:4200/",
+  "tests": [{
+    "id": "703e1288-d790-44c2-a6b1-f18e918acb52",
+    "name": "game-test",
+    "commands": [{
+      "id": "478fe4e7-2145-4986-9efc-00229ac70064",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:4200/home",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2d5bfe84-b0ea-4302-9cce-b8a6f6deb8b1",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1201x1040",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7a6f6f00-f197-4f33-a54f-65128553079e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Play Game')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ba092179-865e-4333-80cd-32b3c4eede5c",
+      "comment": "",
+      "command": "type",
+      "target": "name=name",
+      "targets": [
+        ["name=name", "name"],
+        ["css=.ng-valid", "css:finder"],
+        ["xpath=//input[@name='name']", "xpath:attributes"],
+        ["xpath=//div[@id='formContent']/app-sign-in/form/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Asheer1"
+    }, {
+      "id": "bf23ced0-8153-4f0b-b3f4-f5983f717f49",
+      "comment": "",
+      "command": "type",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.ng-untouched", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[@id='formContent']/app-sign-in/form/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Aa.123456"
+    }, {
+      "id": "d2b7465c-1713-4073-88fb-9257300733a7",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(3)",
+      "targets": [
+        ["css=input:nth-child(3)", "css:finder"],
+        ["xpath=//input[@value='Sign In']", "xpath:attributes"],
+        ["xpath=//div[@id='formContent']/app-sign-in/form/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2c663de7-7294-4adc-99ab-c7622d68be23",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(14) .btn",
+      "targets": [
+        ["css=.row:nth-child(14) .btn", "css:finder"],
+        ["xpath=//div[7]/div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Thriller')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fda0abe5-6908-4c78-bbbd-2b8687d2490f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.funkyradio-warning > label",
+      "targets": [
+        ["css=.funkyradio-warning > label", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[2]/label", "xpath:idRelative"],
+        ["xpath=//div[2]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Forest Whitaker')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e0053374-cce4-41da-b323-7a57cc826248",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(1)",
+      "targets": [
+        ["css=.btn:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e4195d03-af84-41ae-8e68-f4e832dd8586",
+      "comment": "",
+      "command": "click",
+      "target": "css=.funkyradio-warning > label",
+      "targets": [
+        ["css=.funkyradio-warning > label", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[2]/label", "xpath:idRelative"],
+        ["xpath=//div[2]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Clint Eastwood')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "32165a89-c8c6-40c0-a3ec-f4f624daee17",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(1)",
+      "targets": [
+        ["css=.btn:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "875d4c80-40d2-4d8c-ba58-608ea19f17f7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.funkyradio-warning > label",
+      "targets": [
+        ["css=.funkyradio-warning > label", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[2]/label", "xpath:idRelative"],
+        ["xpath=//div[2]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'BP')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "644445c4-2919-4ed7-8c0f-c8d48ed6d644",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(1)",
+      "targets": [
+        ["css=.btn:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "74e02bd6-1edb-4048-8cbe-d30fb45b440f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.funkyradio-danger > label",
+      "targets": [
+        ["css=.funkyradio-danger > label", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'Donald Sutherland')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "61e899e1-b56f-4bc7-9203-7ba9c7f80ebd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(1)",
+      "targets": [
+        ["css=.btn:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "85813414-2708-4d72-8758-a630285bcab3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.funkyradio-warning > label",
+      "targets": [
+        ["css=.funkyradio-warning > label", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[2]/label", "xpath:idRelative"],
+        ["xpath=//div[2]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'50mph')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8dca3c04-f947-415c-adc3-89dc912fb74e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(1)",
+      "targets": [
+        ["css=.btn:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b5b54230-13b2-48aa-9a82-d15e2422f985",
+      "comment": "",
+      "command": "click",
+      "target": "css=.funkyradio-info > label",
+      "targets": [
+        ["css=.funkyradio-info > label", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[3]/label", "xpath:idRelative"],
+        ["xpath=//div[3]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Harrison Ford')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "aebbbf81-3b3e-4bb7-8562-8c320167000e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(1)",
+      "targets": [
+        ["css=.btn:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6a3f7bcc-50a2-440a-a26c-2d62bdf8b778",
+      "comment": "",
+      "command": "click",
+      "target": "css=.funkyradio-warning > label",
+      "targets": [
+        ["css=.funkyradio-warning > label", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[2]/label", "xpath:idRelative"],
+        ["xpath=//div[2]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Forest Whitaker')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "df07244d-74ed-4095-9aee-d578ad123476",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(1)",
+      "targets": [
+        ["css=.btn:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='question']/div/div[2]/div/div/form/div[4]/button", "xpath:idRelative"],
+        ["xpath=//div[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "afbbbf82-e50b-47c5-a688-f24e91030532",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-success",
+      "targets": [
+        ["css=.btn-success", "css:finder"],
+        ["xpath=//div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8bfa8dcd-2b59-441c-be20-a72e3e2085a3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.my-sm-0",
+      "targets": [
+        ["css=.my-sm-0", "css:finder"],
+        ["xpath=//div[@id='navbarTogglerDemo02']/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Logout')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "56a7fd67-c7ac-4a63-a0ed-8ea270f51550",
+      "comment": "",
+      "command": "type",
+      "target": "name=name",
+      "targets": [
+        ["name=name", "name"],
+        ["css=.ng-valid", "css:finder"],
+        ["xpath=//input[@name='name']", "xpath:attributes"],
+        ["xpath=//div[@id='formContent']/app-sign-in/form/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Asheer1"
+    }, {
+      "id": "7dfefcb1-2bc0-4ec2-9ee3-9e8af4d91853",
+      "comment": "",
+      "command": "type",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.ng-untouched", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[@id='formContent']/app-sign-in/form/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Aa.123456"
+    }]
+  }],
+  "suites": [{
+    "id": "332fd198-3c29-40f8-8fd4-8dd3af37793a",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:4200/"],
+  "plugins": []
+}
